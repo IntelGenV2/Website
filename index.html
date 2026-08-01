@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="IntelGen — hardware, software, and vintage systems from the bench. Projects spanning DIY computers, games, and experiments." />
+  <title>IntelGen — Projects &amp; Builds</title>
+  <script>
+    (function () {
+      try {
+        if (location.hash || sessionStorage.getItem('intelgen-session-booted') === '1') {
+          document.documentElement.classList.add('boot-skip');
+        }
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/boot.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="icon" href="assets/logo.png" type="image/png" />
+</head>
+<body class="boot-active">
+  <div id="backdrop" aria-hidden="true"></div>
+  <div id="cursor-glow" aria-hidden="true"></div>
+  <canvas id="rainCanvas" aria-hidden="true"></canvas>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <div id="boot-screen" role="dialog" aria-label="System startup">
+    <div class="boot-terminal">
+      <div class="boot-header">
+        <span class="boot-dot"></span>
+        <span class="boot-dot"></span>
+        <span class="boot-dot"></span>
+        <span class="boot-title">INTELGENV2.COM // LINK</span>
+      </div>
+      <div id="boot-log" class="boot-log" role="log"></div>
+      <div class="boot-progress-wrap">
+        <span class="boot-progress-label">V2.COM</span>
+        <span id="boot-progress-bar" class="boot-progress-bar">[························]</span>
+        <span id="boot-progress-pct" class="boot-progress-pct">0%</span>
+      </div>
+      <p class="boot-hint">Press Enter or click anywhere to skip</p>
+    </div>
+  </div>
+
+  <div id="loading-ui-screen" class="loading-ui-screen hidden" role="dialog" aria-label="Loading interface" aria-hidden="true">
+    <div class="boot-ui-phase">
+      <p class="boot-ui-eyebrow">FINAL HOP</p>
+      <h2 class="boot-ui-title">LINKING SITE</h2>
+      <div class="boot-ui-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      <p class="boot-ui-sub">Opening uplink to projects…</p>
+    </div>
+  </div>
+
+  <div id="site" class="hidden" aria-hidden="true">
+    <header class="site-nav">
+      <a class="nav-brand" href="#top">
+        <img src="assets/logo.png" alt="IntelGen" width="140" height="48" />
+      </a>
+      <button type="button" id="nav-toggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">☰</button>
+      <ul id="nav-links" class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+      </ul>
+      <div class="nav-status">
+        <div class="theme-picker" id="theme-picker">
+          <button type="button" id="theme-toggle" class="theme-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="theme-menu" title="Accent color">
+            <span class="theme-toggle-swatch" aria-hidden="true"></span>
+            <span class="theme-toggle-label">COLOR</span>
+          </button>
+          <div id="theme-menu" class="theme-menu hidden" role="menu" aria-label="Accent colors">
+            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="red" aria-checked="false" title="Red" style="--swatch:#dc143c"><span class="visually-hidden">Red</span></button>
+            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="orange" aria-checked="true" title="Orange" style="--swatch:#ff6a00"><span class="visually-hidden">Orange</span></button>
+            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="amber" aria-checked="false" title="Amber" style="--swatch:#e8a000"><span class="visually-hidden">Amber</span></button>
+            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="green" aria-checked="false" title="Green" style="--swatch:#22c55e"><span class="visually-hidden">Green</span></button>
+            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="cyan" aria-checked="false" title="Cyan" style="--swatch:#00c8e0"><span class="visually-hidden">Cyan</span></button>
+            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="blue" aria-checked="false" title="Blue" style="--swatch:#3b82f6"><span class="visually-hidden">Blue</span></button>
+            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="magenta" aria-checked="false" title="Magenta" style="--swatch:#e040a0"><span class="visually-hidden">Magenta</span></button>
+          </div>
+        </div>
+        <span id="live-clock" class="live-clock">--:--:--</span>
+        <span class="status-pill" id="sys-status">ONLINE</span>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-label="IntelGen hero">
+        <div id="screen-glitch" aria-hidden="true"></div>
+        <div class="hero-bezel" aria-hidden="true">
+          <span class="bezel-corner bezel-tl"></span>
+          <span class="bezel-corner bezel-tr"></span>
+          <span class="bezel-corner bezel-bl"></span>
+          <span class="bezel-corner bezel-br"></span>
+        </div>
+        <div class="hero-content">
+          <h1 class="hero-brand" data-text="IntelGenV2">
+            <span class="hero-brand-text">IntelGenV2</span>
+            <span class="hero-version">.com</span>
+          </h1>
+          <p class="hero-tagline">Hardware, software, and vintage systems<span class="blink-cursor" aria-hidden="true"></span></p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#projects">View projects</a>
+            <a class="btn btn-ghost" href="#about">About</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <div class="site-inner">
+          <p class="section-label reveal">DIR // ABOUT</p>
+          <h2 class="section-title reveal reveal-delay-1">What this is</h2>
+          <p class="section-lead reveal reveal-delay-2">IntelGen is a lab label for builds from the bench — DIY computers, games, and experiments that lean into retro hardware and old-machine aesthetics.</p>
+          <div class="about-grid">
+            <div class="about-copy reveal reveal-delay-3">
+              <p>Some projects live in solder and VGA; others live in browsers, Unity, or Electron. One of them is a CRT-styled command dashboard. The rest span BASIC mini-PCs, ternary OS playgrounds, PC fabricator games, and arena fighters.</p>
+              <p>The look of this site — BIOS boot, scanlines, phosphor glow — is the same language those machines speak.</p>
+              <p class="signal-line"><span>SIGNAL</span> <span id="channel-armed">Orange channel armed</span> · bench active · uplink online</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="section">
+        <div class="site-inner">
+          <p class="section-label reveal">DIR // PROJECTS</p>
+          <h2 class="section-title reveal reveal-delay-1">Projects</h2>
+          <p class="section-lead reveal reveal-delay-2">A directory of hardware builds, games, and software experiments. Open a drive for the full brief.</p>
+          <p class="dir-path reveal reveal-delay-2" aria-hidden="true">C:\INTELGEN\PROJECTS\&gt;</p>
+          <ul class="module-list project-list">
+            <li>
+              <a class="module-item reveal reveal-delay-1" data-channel="projects" href="projects/retro-computers.html">
+                <span class="module-code">HW-00</span>
+                <div>
+                  <div class="project-head">
+                    <h3 class="module-name">Retro Computers</h3>
+                    <span class="project-type">Collection</span>
+                  </div>
+                  <p class="project-path">C:\PROJECTS\RETRO COMPUTERS</p>
+                  <p class="module-desc">Personal fleet: C64, VIC-20, Amiga 500, Apple IIe, Mac Plus (7.1), iMac G3 (10.3), Dell Vostro 200 (XP).</p>
+                  <p class="module-more">OPEN →</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="module-item reveal reveal-delay-1" data-channel="nanolab" href="projects/nanolab.html">
+                <span class="module-code">HW-01</span>
+                <div>
+                  <div class="project-head">
+                    <h3 class="module-name">NanoLab</h3>
+                    <span class="project-type">Hardware</span>
+                  </div>
+                  <p class="project-path">C:\PROJECTS\NANO LAB</p>
+                  <p class="module-desc">Arduino BASIC mini-PC with a dual-Nano CPU/VGA GPU stack — a real machine you can type into.</p>
+                  <p class="module-more">OPEN →</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="module-item reveal reveal-delay-2" data-channel="nanogui" href="projects/nanolab-gui.html">
+                <span class="module-code">HW-02</span>
+                <div>
+                  <div class="project-head">
+                    <h3 class="module-name">NanoLab GUI</h3>
+                    <span class="project-type">Hardware</span>
+                  </div>
+                  <p class="project-path">C:\PROJECTS\NANO LAB\GUI</p>
+                  <p class="module-desc">ESP32 + FabGL VGA OS with a Win98-style desktop, explorer, terminal, and SD-card apps.</p>
+                  <p class="module-more">OPEN →</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="module-item reveal reveal-delay-3" data-channel="sysbuild" href="projects/system-build.html">
+                <span class="module-code">SW-01</span>
+                <div>
+                  <div class="project-head">
+                    <h3 class="module-name">System Build</h3>
+                    <span class="project-type">Game</span>
+                  </div>
+                  <p class="project-path">C:\PROJECTS\SYSTEM BUILD</p>
+                  <p class="module-desc">Browser fabricator game: buy PC parts, wire a schematic, and climb bus eras from ISA to PCIe.</p>
+                  <p class="module-more">OPEN →</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="module-item reveal reveal-delay-4" data-channel="qtos" href="projects/qtos.html">
+                <span class="module-code">SW-02</span>
+                <div>
+                  <div class="project-head">
+                    <h3 class="module-name">QTOS</h3>
+                    <span class="project-type">Software</span>
+                  </div>
+                  <p class="project-path">C:\PROJECTS\QTOS</p>
+                  <p class="module-desc">Quantified Ternary Operating System — a Python playground for ternary logic and context-driven kernels.</p>
+                  <p class="module-more">OPEN →</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="module-item reveal reveal-delay-5" data-channel="revival" href="projects/system-revival.html">
+                <span class="module-code">SW-03</span>
+                <div>
+                  <div class="project-head">
+                    <h3 class="module-name">System Revival</h3>
+                    <span class="project-type">Game</span>
+                  </div>
+                  <p class="project-path">C:\PROJECTS\SYSTEM REVIVAL</p>
+                  <p class="module-desc">Unity FPS where a diagnostic bot repairs a 90s PC from inside the motherboard.</p>
+                  <p class="module-more">OPEN →</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="module-item reveal reveal-delay-6" data-channel="intelgen" href="projects/intelgen-app.html">
+                <span class="module-code">SW-04</span>
+                <div>
+                  <div class="project-head">
+                    <h3 class="module-name">IntelGen App</h3>
+                    <span class="project-type">Software</span>
+                  </div>
+                  <p class="project-path">C:\PROJECTS\INTELGEN APP</p>
+                  <p class="module-desc">CRT command dashboard for tasks, builds, parts, and ideas — one project in the lab, not the whole lab.</p>
+                  <p class="module-more">OPEN →</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class="module-item reveal reveal-delay-1" data-channel="mayhem" href="projects/gun-mayhem-3.html">
+                <span class="module-code">SW-05</span>
+                <div>
+                  <div class="project-head">
+                    <h3 class="module-name">Gun Mayhem 3</h3>
+                    <span class="project-type">Game</span>
+                  </div>
+                  <p class="project-path">C:\PROJECTS\GUN MAYHEM 3</p>
+                  <p class="module-desc">Godot local-multiplayer arena fighter with versus, campaign, and challenge modes.</p>
+                  <p class="module-more">OPEN →</p>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-inner footer-inner">
+        <div class="footer-brand">
+          <img src="assets/logo.png" alt="IntelGen" width="120" height="40" />
+        </div>
+        <p class="footer-copy">
+          <span class="phosphor-ready" aria-hidden="true">■</span>
+          Project lab · <span id="footer-channel">Orange channel armed</span>
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/matrix-rain.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/boot.js"></script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+/* Inner pages — project detail & archive (no boot / no rain) */
+
+body.page-mode {
+  overflow-x: hidden;
+}
+
+body.page-mode #site {
+  display: block;
+}
+
+body.page-mode #site.site-ready {
+  /* already visible */
+}
+
+.page-main {
+  padding-top: calc(var(--nav-h) + 3.5rem);
+  padding-bottom: 4rem;
+  position: relative;
+  z-index: 10;
+}
+
+.page-crumb {
+  margin: 0 0 1.5rem;
+  padding-top: 0.25rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+}
+
+.page-crumb a {
+  color: var(--text-dim);
+}
+
+.page-crumb a:hover {
+  color: var(--red-bright);
+}
+
+.page-crumb span {
+  color: var(--red);
+  margin: 0 0.35rem;
+}
+
+.page-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-code {
+  margin: 0 0 0.65rem;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--page-accent, var(--red));
+  text-shadow: 0 0 10px var(--page-accent, var(--red-glow));
+}
+
+.page-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 5vw, 2.75rem);
+  letter-spacing: 0.08em;
+  color: #fff;
+  text-shadow: 0 0 12px var(--red-dim);
+}
+
+.page-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 1rem;
+  margin-top: 0.85rem;
+}
+
+.page-type {
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--page-accent, var(--red-bright));
+  border: 1px solid var(--page-accent, var(--border));
+  padding: 0.15rem 0.45rem;
+  border-radius: 2px;
+}
+
+.page-path {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: rgba(245, 235, 224, 0.4);
+}
+
+.page-lead {
+  margin: 1.25rem 0 0;
+  max-width: 40em;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text-dim);
+}
+
+.page-body {
+  max-width: 42em;
+}
+
+.page-body h2 {
+  margin: 2.25rem 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+  color: var(--red-bright);
+  text-shadow: 0 0 10px var(--red-dim);
+}
+
+.page-body p {
+  margin: 0 0 1rem;
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+
+.page-body ul {
+  margin: 0 0 1.25rem;
+  padding: 0 0 0 1.15rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+.page-body li {
+  margin-bottom: 0.35rem;
+}
+
+.page-body li::marker {
+  color: var(--page-accent, var(--red));
+}
+
+.page-specs {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  background: rgba(10, 8, 6, 0.55);
+}
+
+.page-specs li {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.page-specs li:last-child {
+  border-bottom: none;
+}
+
+.page-specs strong {
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  color: var(--red);
+  padding-top: 0.15rem;
+}
+
+.page-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+/* Keep project prev/next buttons visually matched (no pulsing primary) */
+.page-nav .btn,
+.page-nav .btn-primary,
+.page-nav .btn-ghost {
+  border: 1px solid var(--border);
+  background: rgba(14, 8, 2, 0.55);
+  color: var(--red-bright);
+  box-shadow: none;
+  animation: none;
+}
+
+.page-nav .btn:hover,
+.page-nav .btn-primary:hover,
+.page-nav .btn-ghost:hover {
+  border-color: var(--red-bright);
+  background: var(--red-dim);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 0 16px var(--red-dim);
+  text-shadow: none;
+}
+
+.archive-intro {
+  margin-bottom: 2rem;
+  max-width: 40em;
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+
+.archive-group {
+  margin-bottom: 2.75rem;
+}
+
+.archive-group-title {
+  margin: 0 0 1rem;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  color: var(--red);
+}
+
+.module-item.project-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+a.module-item {
+  display: grid;
+  text-decoration: none;
+  color: inherit;
+}
+
+a.module-item:hover .module-name {
+  color: var(--red-bright);
+  text-shadow: 0 0 10px var(--red-glow);
+}
+
+.module-more {
+  margin: 0.55rem 0 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--ch-color, var(--red-bright));
+}
+
+@media (max-width: 600px) {
+  .page-specs li {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+}

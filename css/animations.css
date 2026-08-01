@@ -1,0 +1,355 @@
+/* IntelGen V2 — motion & entrance animations */
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+.reveal-delay-5 { transition-delay: 0.4s; }
+.reveal-delay-6 { transition-delay: 0.48s; }
+
+/* Hero enter after boot — heavy glitch in, then idle flicker */
+.site-ready .hero-brand {
+  animation:
+    hero-glitch-in 1.35s cubic-bezier(0.22, 1, 0.36, 1) both,
+    hero-glitch-idle 5.5s 1.4s infinite;
+}
+
+.site-ready .hero-version {
+  animation:
+    fade-up 0.8s ease 0.28s both,
+    title-flicker 4.8s 1.6s infinite;
+}
+
+.site-ready .hero-tagline {
+  animation: fade-up 0.8s ease both;
+  animation-delay: 0.42s;
+}
+
+.site-ready .hero-cta {
+  animation: fade-up 0.8s ease both;
+  animation-delay: 0.55s;
+}
+
+@keyframes hero-glitch-in {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) skewX(-8deg);
+    letter-spacing: 0.55em;
+    filter: blur(2px);
+    text-shadow:
+      4px 0 #ff0033,
+      -4px 0 #00ffff;
+  }
+  12% {
+    opacity: 1;
+    transform: translate(-6px, 0) skewX(6deg);
+    text-shadow:
+      -6px 0 #ff0033,
+      5px 0 #00ffff,
+      0 0 12px #fff;
+  }
+  22% {
+    transform: translate(5px, -2px) skewX(-4deg);
+    letter-spacing: 0.2em;
+    text-shadow:
+      3px 0 #ff0033,
+      -4px 0 #00e5ff;
+  }
+  32% {
+    transform: translate(-3px, 1px) skewX(3deg);
+    filter: blur(0);
+    text-shadow:
+      -2px 0 #ff0033,
+      3px 0 #00ffff;
+  }
+  42% {
+    transform: translate(2px, 0) skewX(-1deg);
+    letter-spacing: 0.12em;
+  }
+  55% {
+    transform: translate(-1px, 0);
+    text-shadow:
+      2px 0 var(--red),
+      -2px 0 #00ffff,
+      0 0 10px var(--red-glow);
+  }
+  70% {
+    transform: none;
+    text-shadow:
+      1px 0 #ff3355,
+      -1px 0 #00e5ff,
+      0 0 8px var(--red);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+    letter-spacing: 0.12em;
+    filter: none;
+    text-shadow:
+      0 0 8px var(--red),
+      0 0 18px var(--red-glow);
+  }
+}
+
+@keyframes hero-glitch-idle {
+  0%, 86%, 100% {
+    transform: none;
+    text-shadow:
+      0 0 8px var(--red),
+      0 0 18px var(--red-glow);
+    filter: none;
+  }
+  87% {
+    transform: translate(-3px, 1px) skewX(-2deg);
+    text-shadow:
+      -4px 0 #ff0033,
+      3px 0 #00ffff,
+      0 0 10px #fff;
+  }
+  88% {
+    transform: translate(4px, -1px) skewX(2deg);
+    text-shadow:
+      5px 0 #ff0033,
+      -3px 0 #00ffff;
+    filter: contrast(1.4);
+  }
+  90% {
+    transform: translate(-2px, 0);
+    text-shadow:
+      -2px 0 #ff0033,
+      2px 0 #00ffff,
+      0 0 8px var(--red);
+  }
+  92% {
+    transform: none;
+    filter: none;
+    text-shadow:
+      0 0 8px var(--red),
+      0 0 18px var(--red-glow);
+  }
+}
+
+@keyframes title-chromatic-a {
+  0%, 90%, 100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0);
+    opacity: 0;
+  }
+  91% {
+    opacity: 0.9;
+    clip-path: inset(10% 0 55% 0);
+    transform: translate(-4px, -1px);
+  }
+  93% {
+    opacity: 0.75;
+    clip-path: inset(40% 0 20% 0);
+    transform: translate(5px, 1px);
+  }
+  95% {
+    opacity: 0;
+    transform: translate(0);
+  }
+}
+
+@keyframes title-chromatic-b {
+  0%, 84%, 100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0);
+    opacity: 0;
+  }
+  85% {
+    opacity: 0.9;
+    clip-path: inset(0 0 70% 0);
+    transform: translate(4px, 0);
+  }
+  87% {
+    opacity: 0.8;
+    clip-path: inset(50% 0 10% 0);
+    transform: translate(-5px, 2px);
+  }
+  89% {
+    opacity: 0;
+    transform: translate(0);
+  }
+}
+
+@keyframes title-flicker {
+  0%, 92%, 100% { opacity: 1; }
+  93% { opacity: 0.35; }
+  94% { opacity: 1; }
+  96% { opacity: 0.55; }
+  97% { opacity: 1; }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes status-pulse {
+  0%, 100% { opacity: 0.75; }
+  50% { opacity: 1; }
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes cta-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px var(--red-dim);
+  }
+  50% {
+    box-shadow: 0 0 36px var(--red-glow), 0 0 60px var(--red-dim);
+  }
+}
+
+@keyframes channel-flicker {
+  0%, 100% { opacity: 1; }
+  30% { opacity: 0.45; }
+  55% { opacity: 1; }
+  70% { opacity: 0.7; }
+}
+
+@keyframes screen-glitch-flash {
+  0% {
+    opacity: 0;
+    transform: none;
+  }
+  20% {
+    opacity: 1;
+    transform: translateX(-8px) skewX(-3deg);
+    background-color: rgba(255, 0, 60, 0.08);
+  }
+  40% {
+    opacity: 0.6;
+    transform: translateX(10px) skewX(4deg);
+    background-color: rgba(0, 255, 255, 0.06);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(-4px);
+  }
+  100% {
+    opacity: 0;
+    transform: none;
+  }
+}
+
+@keyframes screen-glitch-shake {
+  0%, 100% {
+    transform: none;
+    filter: none;
+  }
+  25% {
+    transform: translate(-6px, 1px) skewX(-1deg);
+    filter: contrast(1.5) hue-rotate(-15deg);
+  }
+  50% {
+    transform: translate(7px, -2px) skewX(2deg);
+    filter: contrast(1.35) hue-rotate(25deg) saturate(1.5);
+  }
+  75% {
+    transform: translate(-3px, 0);
+    filter: contrast(1.2);
+  }
+}
+
+/* Channel accent pulse on hover */
+.module-item:hover .module-code {
+  animation: channel-flicker 0.6s ease;
+}
+
+/* Soft scanline drift on teaser */
+.teaser::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--red-dim) 50%,
+    transparent 100%
+  );
+  background-size: 100% 200%;
+  animation: teaser-scan 6s linear infinite;
+  opacity: 0.35;
+}
+
+@keyframes teaser-scan {
+  0% { background-position: 0 -100%; }
+  100% { background-position: 0 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .site-ready .hero-brand,
+  .site-ready .hero-version,
+  .site-ready .hero-tagline,
+  .site-ready .hero-cta,
+  .hero-brand-text::before,
+  .hero-brand-text::after {
+    animation: none;
+  }
+
+  .status-pill,
+  .btn-primary,
+  .teaser::after,
+  .module-item:hover .module-code,
+  .blink-cursor,
+  .phosphor-ready {
+    animation: none;
+  }
+
+  .blink-cursor,
+  .phosphor-ready {
+    opacity: 0.85;
+  }
+
+  .module-item:hover {
+    transform: none;
+  }
+
+  .btn:hover {
+    transform: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  body.screen-glitching .hero,
+  body.screen-glitching #screen-glitch {
+    animation: none !important;
+    filter: none !important;
+    transform: none !important;
+    opacity: 0 !important;
+  }
+}
