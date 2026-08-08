@@ -3,10 +3,10 @@
 /* Scroll reveal */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(12px);
   transition:
-    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reveal.is-visible {
@@ -14,12 +14,12 @@
   transform: translateY(0);
 }
 
-.reveal-delay-1 { transition-delay: 0.08s; }
-.reveal-delay-2 { transition-delay: 0.16s; }
-.reveal-delay-3 { transition-delay: 0.24s; }
-.reveal-delay-4 { transition-delay: 0.32s; }
-.reveal-delay-5 { transition-delay: 0.4s; }
-.reveal-delay-6 { transition-delay: 0.48s; }
+.reveal-delay-1 { transition-delay: 0.04s; }
+.reveal-delay-2 { transition-delay: 0.08s; }
+.reveal-delay-3 { transition-delay: 0.12s; }
+.reveal-delay-4 { transition-delay: 0.16s; }
+.reveal-delay-5 { transition-delay: 0.2s; }
+.reveal-delay-6 { transition-delay: 0.24s; }
 
 /* Hero enter after boot — heavy glitch in, then idle flicker */
 .site-ready .hero-brand {
@@ -352,4 +352,92 @@
     transform: none !important;
     opacity: 0 !important;
   }
+
+  body.crt-powering-off #site,
+  body.crt-powering-on #site,
+  body.crt-blackout #site,
+  body.crt-powering-off #rainCanvas,
+  body.crt-powering-on #rainCanvas,
+  body.crt-blackout #rainCanvas,
+  body.crt-powering-off #backdrop,
+  body.crt-powering-on #backdrop,
+  body.crt-blackout #backdrop,
+  body.crt-powering-off .scanlines,
+  body.crt-powering-on .scanlines,
+  body.crt-blackout .scanlines,
+  body.crt-powering-off .vignette,
+  body.crt-powering-on .vignette,
+  body.crt-blackout .vignette,
+  body.crt-powering-off .crt-fx-bloom,
+  body.crt-powering-off .crt-fx-line,
+  body.crt-powering-off .crt-fx-dot,
+  body.crt-powering-on .crt-fx-bloom,
+  body.crt-powering-on .crt-fx-line,
+  body.crt-powering-on .crt-fx-dot {
+    animation: none !important;
+  }
+
+  body.crt-blackout #site,
+  body.crt-blackout #rainCanvas,
+  body.crt-blackout #backdrop,
+  body.crt-blackout .scanlines,
+  body.crt-blackout .vignette {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    visibility: visible !important;
+  }
+
+  body.crt-blackout::before {
+    display: none !important;
+  }
+}
+
+/* Manual CRT toggle — CRT collapse only; fade path still runs when CRT is off */
+html.fx-off body.crt-powering-off #site,
+html.fx-off body.crt-powering-on #site,
+html.fx-off body.crt-blackout #site,
+html.fx-off body.crt-powering-off #rainCanvas,
+html.fx-off body.crt-powering-on #rainCanvas,
+html.fx-off body.crt-blackout #rainCanvas,
+html.fx-off body.crt-powering-off #backdrop,
+html.fx-off body.crt-powering-on #backdrop,
+html.fx-off body.crt-blackout #backdrop,
+html.fx-off body.crt-powering-off .scanlines,
+html.fx-off body.crt-powering-on .scanlines,
+html.fx-off body.crt-blackout .scanlines,
+html.fx-off body.crt-powering-off .vignette,
+html.fx-off body.crt-powering-on .vignette,
+html.fx-off body.crt-blackout .vignette,
+html.fx-off body.crt-powering-off .crt-fx-bloom,
+html.fx-off body.crt-powering-off .crt-fx-line,
+html.fx-off body.crt-powering-off .crt-fx-dot,
+html.fx-off body.crt-powering-on .crt-fx-bloom,
+html.fx-off body.crt-powering-on .crt-fx-line,
+html.fx-off body.crt-powering-on .crt-fx-dot {
+  animation: none !important;
+}
+
+html.fx-off body.crt-blackout #site,
+html.fx-off body.crt-blackout #rainCanvas,
+html.fx-off body.crt-blackout #backdrop,
+html.fx-off body.crt-blackout .scanlines,
+html.fx-off body.crt-blackout .vignette {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  visibility: visible !important;
+}
+
+html.fx-off body.crt-blackout::before {
+  display: none !important;
+}
+
+/* Manual GLITCH toggle — full-screen bursts only; title chromatic stays */
+html.glitch-off body.screen-glitching .hero,
+html.glitch-off body.screen-glitching #screen-glitch {
+  animation: none !important;
+  filter: none !important;
+  transform: none !important;
+  opacity: 0 !important;
 }

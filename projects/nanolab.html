@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('intelgen-fx') === '0') document.documentElement.classList.add('fx-off');
+        if (localStorage.getItem('intelgen-glitch') === '0') document.documentElement.classList.add('glitch-off');
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Arduino BASIC mini-PC with a dual-Nano CPU and VGA GPU � a real machine you can type into." />
-  <title>NanoLab � IntelGen</title>
+  <meta name="description" content="Arduino BASIC mini-PC with a dual-Nano CPU and VGA GPU — a real machine you can type into." />
+  <title>NanoLab 1 — IntelGen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
@@ -22,89 +30,120 @@
 
   <div id="site" class="site-ready" aria-hidden="false">
     <header class="site-nav">
-      <a class="nav-brand" href="../index.html">
-        <img src="../assets/logo.png" alt="IntelGen" width="140" height="48" />
-      </a>
-      <button type="button" id="nav-toggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">?</button>
-      <ul id="nav-links" class="nav-links">
-        <li><a href="../index.html#about">About</a></li>
-        <li><a href="../index.html#projects">Projects</a></li>
-      </ul>
-      <div class="nav-status">
-        <div class="theme-picker" id="theme-picker">
-          <button type="button" id="theme-toggle" class="theme-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="theme-menu" title="Accent color">
-            <span class="theme-toggle-swatch" aria-hidden="true"></span>
-            <span class="theme-toggle-label">COLOR</span>
-          </button>
-          <div id="theme-menu" class="theme-menu hidden" role="menu" aria-label="Accent colors">
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="red" aria-checked="false" title="Red" style="--swatch:#dc143c"><span class="visually-hidden">Red</span></button>
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="orange" aria-checked="true" title="Orange" style="--swatch:#ff6a00"><span class="visually-hidden">Orange</span></button>
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="amber" aria-checked="false" title="Amber" style="--swatch:#e8a000"><span class="visually-hidden">Amber</span></button>
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="green" aria-checked="false" title="Green" style="--swatch:#22c55e"><span class="visually-hidden">Green</span></button>
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="cyan" aria-checked="false" title="Cyan" style="--swatch:#00c8e0"><span class="visually-hidden">Cyan</span></button>
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="blue" aria-checked="false" title="Blue" style="--swatch:#3b82f6"><span class="visually-hidden">Blue</span></button>
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="magenta" aria-checked="false" title="Magenta" style="--swatch:#e040a0"><span class="visually-hidden">Magenta</span></button>
+      <div class="nav-start">
+        <a class="nav-brand" href="../index.html">
+          <img src="../assets/logo.png" alt="IntelGen" width="140" height="48" />
+        </a>
+                <nav id="nav-links" class="nav-links nav-path" aria-label="Project paths">
+          <span class="nav-path-root">C:\</span>
+          <button type="button" class="nav-path-trigger nav-path-home" id="nav-home" data-home aria-label="Home">HOME</button>
+          <span class="nav-path-sep">\</span>
+          <div class="nav-path-drop" data-cat="system">
+            <button type="button" class="nav-path-trigger" data-cat="system" aria-expanded="false" aria-haspopup="true" aria-controls="menu-system">SYSTEM</button>
+            <div id="menu-system" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="system-build.html">System Build</a>
+              <a role="menuitem" href="system-revival.html">System Revival</a>
+            </div>
           </div>
+          <span class="nav-path-sep">\</span>
+          <div class="nav-path-drop" data-cat="intelgen">
+            <button type="button" class="nav-path-trigger" data-cat="intelgen" aria-expanded="false" aria-haspopup="true" aria-controls="menu-intelgen">INTELGEN</button>
+            <div id="menu-intelgen" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="intelgen-app.html">IntelGen App</a>
+              <a role="menuitem" href="intelgen-game-launcher.html">Game Launcher</a>
+            </div>
+          </div>
+          <span class="nav-path-sep">\</span>
+          <div class="nav-path-drop" data-cat="nanolab">
+            <button type="button" class="nav-path-trigger" data-cat="nanolab" aria-expanded="false" aria-haspopup="true" aria-controls="menu-nanolab">NANOLAB</button>
+            <div id="menu-nanolab" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="nanolab.html">NanoLab 1</a>
+              <a role="menuitem" href="nanolab-2.html">NanoLab 2</a>
+              <a role="menuitem" href="nanolab-gui.html">NanoLab GUI</a>
+            </div>
+          </div>
+          <span class="nav-path-sep">\</span>
+          <div class="nav-path-drop" data-cat="misc">
+            <button type="button" class="nav-path-trigger" data-cat="misc" aria-expanded="false" aria-haspopup="true" aria-controls="menu-misc">MISC</button>
+            <div id="menu-misc" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="retro-computers.html">Retro Computers</a>
+              <a role="menuitem" href="qtos.html">QTOS</a>
+              <a role="menuitem" href="gun-mayhem-3.html">Gun Mayhem 3</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-end">
+        <button type="button" id="nav-toggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">☰</button>
+        <div class="nav-status">
+          <button type="button" id="fx-toggle" class="fx-switch" aria-pressed="true" title="Toggle CRT transitions">CRT</button>
+          <button type="button" id="glitch-toggle" class="fx-switch" aria-pressed="true" title="Toggle screen glitch">GLITCH</button>
+          <div class="theme-picker" id="theme-picker">
+            <button type="button" id="theme-toggle" class="theme-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="theme-menu" title="Accent color">
+              <span class="theme-toggle-swatch" aria-hidden="true"></span>
+              <span class="theme-toggle-label">COLOR</span>
+            </button>
+            <div id="theme-menu" class="theme-menu hidden" role="menu" aria-label="Accent colors">
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="red" aria-checked="false" title="Red" style="--swatch:#dc143c"><span class="visually-hidden">Red</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="orange" aria-checked="true" title="Orange" style="--swatch:#ff6a00"><span class="visually-hidden">Orange</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="amber" aria-checked="false" title="Amber" style="--swatch:#e8a000"><span class="visually-hidden">Amber</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="green" aria-checked="false" title="Green" style="--swatch:#22c55e"><span class="visually-hidden">Green</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="cyan" aria-checked="false" title="Cyan" style="--swatch:#00c8e0"><span class="visually-hidden">Cyan</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="blue" aria-checked="false" title="Blue" style="--swatch:#3b82f6"><span class="visually-hidden">Blue</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="magenta" aria-checked="false" title="Magenta" style="--swatch:#e040a0"><span class="visually-hidden">Magenta</span></button>
+            </div>
+          </div>
+          <span id="live-clock" class="live-clock">--:--:--</span>
+          <span class="status-pill" id="sys-status">ONLINE</span>
         </div>
-        <span id="live-clock" class="live-clock">--:--:--</span>
-        <span class="status-pill" id="sys-status">ONLINE</span>
       </div>
     </header>
 
     <main class="page-main">
       <div class="site-inner" style="--page-accent: #ff6a00">
-        <p class="page-crumb reveal">
-          <a href="../index.html">HOME</a><span>//</span>
-          <a href="../index.html#projects">PROJECTS</a><span>//</span>
-          NanoLab
-        </p>
         <header class="page-header reveal reveal-delay-1">
-          <p class="page-code">HW-01</p>
-          <h1 class="page-title">NanoLab</h1>
+          <p class="page-code">NL-01</p>
+          <h1 class="page-title">NanoLab 1</h1>
           <div class="page-meta">
             <span class="page-type">Hardware</span>
-            <p class="page-path">C:\PROJECTS\NANO LAB</p>
           </div>
-          <p class="page-lead">Arduino BASIC mini-PC with a dual-Nano CPU and VGA GPU � a real machine you can type into.</p>
+          <p class="page-lead">Arduino BASIC mini-PC with a dual-Nano CPU and VGA GPU — a real machine you can type into.</p>
         </header>
         <article class="page-body reveal reveal-delay-2">
           <h2>OVERVIEW</h2>
-          <p>NanoLab is a customized BASIC mini computer that runs on two Arduino Nanos: one as CPU (interpreter + PS/2 keyboard) and one as GPU (VGA text renderer). Built by Laurence Bosch and treated as a flagship bench project.</p>
-          <p>It grows out of Rob Cai�s Arduino VGA Tiny Basic lineage and TinyBasic Plus, then strips, retunes, and extends the firmware for a specific hardware stack � including a boot sequence, password gate, memory screen, and command history.</p>
+          <p>NanoLab 1 is a customized BASIC mini computer on two Arduino Nanos: one as CPU (interpreter + PS/2 keyboard) and one as GPU (VGA text renderer).</p>
+          <h2>WHAT IT CAN DO</h2>
+          <ul>
+            <li>Type and run integer TinyBASIC at a live <code>&gt;</code> prompt (variables A–Z, ~1 KB program buffer)</li>
+            <li>Store numbered programs, edit lines, browse a short command history with up/down</li>
+            <li>Full flow: <code>RUN</code>, <code>GOTO</code>/<code>GOSUB</code>, <code>IF</code>/<code>THEN</code>, <code>FOR</code>/<code>NEXT</code>, <code>DATA</code>/<code>READ</code>/<code>RESTORE</code></li>
+            <li>Print to VGA text, clear the screen, cycle text color, draw block graphics</li>
+            <li>Play tones on a piezo (<code>TONE</code>, <code>TONEW</code>, <code>!</code>) — enough for simple music programs</li>
+            <li>Save and load programs from EEPROM (<code>ESAVE</code>, <code>ELOAD</code>, <code>ECHAIN</code>, <code>ELIST</code>, <code>EFORMAT</code>)</li>
+            <li>Check free memory with <code>MEM</code>; break a running program with ESC</li>
+            <li>Short aliases for common work: <code>?</code> for INPUT, <code>.</code> for PRINT, <code>!</code> for TONEW</li>
+          </ul>
           <h2>HIGHLIGHTS</h2>
           <ul>
             <li>Dual-Nano CPU/GPU split with a serial protocol between boards</li>
             <li>VGA text output and PS/2 keyboard input</li>
             <li>Boot flow with memory status and tones</li>
             <li>Expanded BASIC commands, aliases, and EEPROM workflow tools</li>
-            <li>Companion PC �NanoLab Sender� for pushing programs over serial</li>
           </ul>
           <ul class="page-specs">
-            <li><strong>Stack</strong> Dual Arduino Nano � Tiny BASIC � VGA</li>
+            <li><strong>Stack</strong> Dual Arduino Nano · Tiny BASIC · VGA</li>
             <li><strong>Input</strong> PS/2 keyboard</li>
             <li><strong>Display</strong> VGA text GPU board</li>
-            <li><strong>Era vibe</strong> Home microcomputer / terminal</li>
+            <li><strong>Language</strong> Integer TinyBASIC (A–Z, no floats/strings)</li>
+            <li><strong>Storage</strong> ~1 KB RAM buffer · EEPROM load/save</li>
           </ul>
         </article>
         <nav class="page-nav reveal reveal-delay-3" aria-label="Project navigation">
-          <a class="btn btn-ghost" href="../index.html#projects">&larr; All projects</a>
-          <a class="btn btn-ghost" href="retro-computers.html">&larr; Retro Computers</a>
-          <a class="btn btn-primary" href="nanolab-gui.html">NanoLab GUI &rarr;</a>
+          <a class="btn btn-ghost" href="intelgen-game-launcher.html">&larr; Game Launcher</a>
+          <a class="btn btn-ghost" href="nanolab-2.html">NanoLab 2 &rarr;</a>
         </nav>
       </div>
     </main>
-
-    <footer class="site-footer">
-      <div class="site-inner footer-inner">
-        <div class="footer-brand">
-          <img src="../assets/logo.png" alt="IntelGen" width="120" height="40" />
-        </div>
-        <p class="footer-copy">
-          <span class="phosphor-ready" aria-hidden="true">&#9632;</span>
-          Project lab &middot; <span id="footer-channel">Orange channel armed</span>
-        </p>
-      </div>
-    </footer>
   </div>
 
   <span id="channel-armed" class="visually-hidden">Orange channel armed</span>

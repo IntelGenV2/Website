@@ -1,5 +1,20 @@
 (function () {
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fxEnabled = !document.documentElement.classList.contains('fx-off');
+  var matrixEnabled = !document.documentElement.classList.contains('matrix-off');
+  var glitchEnabled = !document.documentElement.classList.contains('glitch-off');
+
+  /* ANIM toggle — CRT transitions only */
+  function crtOff() {
+    return prefersReduced || !fxEnabled;
+  }
+
+  function screenGlitchOff() {
+    return prefersReduced || !glitchEnabled;
+  }
+
+  /* legacy alias for non-CRT ambient motion (cursor, etc.) */
+  var reduced = prefersReduced;
 
   /* ---- Cursor glow ---- */
   (function initCursorGlow() {
@@ -73,30 +88,522 @@
     });
   }
 
-  /* ---- Active nav on scroll ---- */
-  var sections = ['about', 'projects'];
+  /* ---- Category screens + CRT power cycle ---- */
+  var sections = ['system', 'intelgen', 'nanolab', 'misc'];
   var navAnchors = {};
+  var currentCat = null;
+  var crtBusy = false;
+
+  var CAT_META = {
+    system: { title: 'System', path: 'C:\\HOME\\SYSTEM' },
+    intelgen: { title: 'IntelGen', path: 'C:\\HOME\\INTELGEN' },
+    nanolab: { title: 'NanoLab', path: 'C:\\HOME\\NANOLAB' },
+    misc: { title: 'Misc', path: 'C:\\HOME\\MISC' }
+  };
 
   sections.forEach(function (id) {
-    var a = document.querySelector('.nav-links a[href="#' + id + '"]');
+    var a = document.querySelector(
+      '.nav-path-trigger[data-cat="' + id + '"], .nav-links a[data-cat="' + id + '"], .nav-links a[href="#' + id + '"]'
+    );
     if (a) navAnchors[id] = a;
   });
 
   function updateActiveNav() {
-    var scrollY = window.scrollY + 120;
-    var current = null;
-
-    sections.forEach(function (id) {
-      var el = document.getElementById(id);
-      if (el && el.offsetTop <= scrollY) current = id;
-    });
-
     Object.keys(navAnchors).forEach(function (id) {
-      navAnchors[id].classList.toggle('is-active', id === current);
+      navAnchors[id].classList.toggle('is-active', id === currentCat);
+    });
+    document.querySelectorAll('.cat-hub-btn[data-cat]').forEach(function (btn) {
+      btn.classList.toggle('is-active', btn.getAttribute('data-cat') === currentCat);
+    });
+    var homeBtn = document.getElementById('nav-home');
+    if (homeBtn) {
+      var onHomeScreen = document.getElementById('home-screen');
+      homeBtn.classList.toggle('is-active', !currentCat && !!onHomeScreen);
+    }
+
+    /* Highlight the current project link inside path dropdowns */
+    var path = (location.pathname || '').replace(/\\/g, '/');
+    var file = path.split('/').pop() || '';
+    document.querySelectorAll('.nav-path-menu a').forEach(function (a) {
+      var href = (a.getAttribute('href') || '').replace(/\\/g, '/');
+      var hrefFile = href.split('/').pop() || '';
+      a.classList.toggle('is-active', !!file && hrefFile === file);
     });
   }
 
-  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  function detectPageCategory() {
+    /* Project detail pages: infer category from filename */
+    if (document.getElementById('home-screen')) return null;
+
+    var PAGE_CAT = {
+      'system-build.html': 'system',
+      'system-revival.html': 'system',
+      'intelgen-app.html': 'intelgen',
+      'intelgen-game-launcher.html': 'intelgen',
+      'nanolab.html': 'nanolab',
+      'nanolab-2.html': 'nanolab',
+      'nanolab-gui.html': 'nanolab',
+      'retro-computers.html': 'misc',
+      'qtos.html': 'misc',
+      'gun-mayhem-3.html': 'misc'
+    };
+
+    var path = (location.pathname || '').replace(/\\/g, '/');
+    var file = path.split('/').pop() || '';
+    return PAGE_CAT[file] || null;
+  }
+
+  function normalizeCat(raw) {
+    if (!raw) return null;
+    var key = String(raw).replace(/^#/, '').replace(/^cat-/, '').toLowerCase();
+    return CAT_META[key] ? key : null;
+  }
+
+  function wait(ms) {
+    return new Promise(function (resolve) {
+      setTimeout(resolve, ms);
+    });
+  }
+
+  function closeMobileNav() {
+    var links = document.getElementById('nav-links');
+    var toggle = document.getElementById('nav-toggle');
+    if (links) links.classList.remove('is-open');
+    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  function setView(mode, cat) {
+    var home = document.getElementById('home-screen');
+    var category = document.getElementById('category-screen');
+    if (!home || !category) return;
+
+    if (mode === 'home') {
+      currentCat = null;
+      home.classList.add('is-active');
+      home.removeAttribute('hidden');
+      category.classList.remove('is-active');
+      category.hidden = true;
+      category.setAttribute('aria-hidden', 'true');
+      document.querySelectorAll('.category-panel').forEach(function (panel) {
+        panel.hidden = true;
+      });
+      try {
+        history.replaceState(null, '', location.pathname + location.search);
+      } catch (e) { /* ignore */ }
+    } else {
+      currentCat = cat;
+      var meta = CAT_META[cat];
+      home.classList.remove('is-active');
+      home.setAttribute('hidden', '');
+      category.classList.add('is-active');
+      category.hidden = false;
+      category.removeAttribute('hidden');
+      category.setAttribute('aria-hidden', 'false');
+
+      var title = document.getElementById('category-title');
+      var path = document.getElementById('category-path');
+      if (title) title.textContent = meta.title;
+      if (path) path.textContent = meta.path;
+
+      document.querySelectorAll('.category-panel').forEach(function (panel) {
+        panel.hidden = panel.getAttribute('data-cat') !== cat;
+      });
+
+      try {
+        history.replaceState(null, '', '#' + cat);
+      } catch (e) { /* ignore */ }
+    }
+
+    updateActiveNav();
+    window.scrollTo(0, 0);
+    updateRainClip();
+  }
+
+  function syncMatrixRain() {
+    if (!window.IntelGenRain || !window.IntelGenRain.setSpawning) return;
+    var home = document.getElementById('home-screen');
+    var onHome = !currentCat && home && home.classList.contains('is-active') && !home.hidden;
+    var crtBlocking =
+      document.body.classList.contains('crt-powering-off') ||
+      document.body.classList.contains('crt-blackout') ||
+      document.body.classList.contains('crt-powering-on') ||
+      document.body.classList.contains('view-fading') ||
+      document.body.classList.contains('view-fading-in') ||
+      crtBusy;
+    var shouldSpawn = matrixEnabled && onHome && !crtBlocking;
+    window.IntelGenRain.setSpawning(shouldSpawn);
+  }
+
+  var pendingCrt = null;
+
+  function navigateWithPageFade(url) {
+    if (prefersReduced) {
+      window.location.href = url;
+      return;
+    }
+    try {
+      sessionStorage.setItem('intelgen-enter-fade', '1');
+    } catch (e) { /* ignore */ }
+    document.body.classList.add('view-fading');
+    window.setTimeout(function () {
+      window.location.href = url;
+    }, 220);
+  }
+
+  function playEnterPageFade() {
+    var shouldFade = false;
+    try {
+      shouldFade = sessionStorage.getItem('intelgen-enter-fade') === '1';
+      if (shouldFade) sessionStorage.removeItem('intelgen-enter-fade');
+    } catch (e) { /* ignore */ }
+    if (!shouldFade || prefersReduced) {
+      document.documentElement.classList.remove('enter-fade');
+      return;
+    }
+    document.body.classList.add('view-fading-in');
+    document.documentElement.classList.remove('enter-fade');
+    wait(280).then(function () {
+      document.body.classList.remove('view-fading-in');
+    });
+  }
+
+  function playCrtTransition(nextMode, cat) {
+    if (crtBusy) {
+      pendingCrt = { mode: nextMode, cat: cat };
+      return Promise.resolve();
+    }
+    if (crtOff()) {
+      /* Soft fade instead of CRT collapse */
+      document.body.classList.remove('crt-powering-off', 'crt-powering-on', 'crt-blackout');
+      var fxOff = document.getElementById('crt-fx');
+      if (fxOff) fxOff.classList.remove('is-on');
+
+      if (prefersReduced) {
+        setView(nextMode, cat);
+        return Promise.resolve();
+      }
+
+      crtBusy = true;
+      pendingCrt = null;
+      closeMobileNav();
+      if (nextMode !== 'home' && window.IntelGenRain && window.IntelGenRain.setSpawning) {
+        window.IntelGenRain.setSpawning(false);
+      }
+
+      document.body.classList.add('view-fading');
+      return wait(220).then(function () {
+        setView(nextMode, cat);
+        void document.body.offsetWidth;
+        document.body.classList.add('view-fading-in');
+        document.body.classList.remove('view-fading');
+        return wait(280);
+      }).then(function () {
+        document.body.classList.remove('view-fading-in');
+        crtBusy = false;
+        updateRainClip();
+        if (pendingCrt) {
+          var next = pendingCrt;
+          pendingCrt = null;
+          return playCrtTransition(next.mode, next.cat);
+        }
+      }).catch(function () {
+        document.body.classList.remove('view-fading', 'view-fading-in');
+        crtBusy = false;
+        updateRainClip();
+      });
+    }
+
+    crtBusy = true;
+    pendingCrt = null;
+    closeMobileNav();
+
+    /* Start rain peter-out as soon as we leave home */
+    if (nextMode !== 'home' && window.IntelGenRain && window.IntelGenRain.setSpawning) {
+      window.IntelGenRain.setSpawning(false);
+    }
+
+    var fx = document.getElementById('crt-fx');
+    if (fx) fx.classList.add('is-on');
+
+    document.body.classList.remove('crt-powering-on');
+    document.body.classList.add('crt-powering-off');
+
+    return wait(700).then(function () {
+      document.body.classList.add('crt-blackout');
+      document.body.classList.remove('crt-powering-off');
+      setView(nextMode, cat);
+      void document.body.offsetWidth;
+      document.body.classList.remove('crt-blackout');
+      document.body.classList.add('crt-powering-on');
+      return wait(620);
+    }).then(function () {
+      document.body.classList.remove('crt-powering-on');
+      if (fx) fx.classList.remove('is-on');
+      crtBusy = false;
+      /* Recalc clip after CRT scale finishes — mid-transition rects are ~0 and hide rain */
+      updateRainClip();
+      if (pendingCrt) {
+        var next = pendingCrt;
+        pendingCrt = null;
+        return playCrtTransition(next.mode, next.cat);
+      }
+    }).catch(function () {
+      document.body.classList.remove('crt-powering-off');
+      document.body.classList.remove('crt-powering-on');
+      document.body.classList.remove('crt-blackout');
+      if (fx) fx.classList.remove('is-on');
+      crtBusy = false;
+      updateRainClip();
+    });
+  }
+
+  function openCategory(cat, withCrt) {
+    var key = normalizeCat(cat);
+    if (!key) return;
+    var category = document.getElementById('category-screen');
+    if (currentCat === key && category && category.classList.contains('is-active')) return;
+    if (withCrt === false) setView('category', key);
+    else playCrtTransition('category', key);
+  }
+
+  function goHome(withCrt) {
+    var home = document.getElementById('home-screen');
+    if (!currentCat && home && home.classList.contains('is-active')) return;
+    if (withCrt === false) setView('home');
+    else playCrtTransition('home');
+  }
+
+  function closePathMenus(except) {
+    document.querySelectorAll('.nav-path-drop').forEach(function (drop) {
+      if (except && drop === except) return;
+      drop.classList.remove('is-open');
+      var trigger = drop.querySelector('.nav-path-trigger');
+      var menu = drop.querySelector('.nav-path-menu');
+      if (trigger) trigger.setAttribute('aria-expanded', 'false');
+      if (menu) menu.hidden = true;
+    });
+  }
+
+  function initPathDropdowns() {
+    var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var isHome = !!document.getElementById('home-screen');
+
+    function categoryHref(cat) {
+      var brand = document.querySelector('.nav-brand');
+      var base = brand ? brand.getAttribute('href') : 'index.html';
+      base = (base || 'index.html').split('#')[0];
+      if (!base || base === '#' || base === '#top') base = 'index.html';
+      return base + '#' + cat;
+    }
+
+    function homeHref() {
+      var brand = document.querySelector('.nav-brand');
+      var base = brand ? brand.getAttribute('href') : 'index.html';
+      base = (base || 'index.html').split('#')[0];
+      if (!base || base === '#' || base === '#top') base = 'index.html';
+      return base;
+    }
+
+    var homeBtn = document.getElementById('nav-home');
+    if (homeBtn) {
+      homeBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        closePathMenus();
+        closeMobileNav();
+        if (isHome) goHome(true);
+        else navigateWithPageFade(homeHref());
+      });
+    }
+
+    if (!isHome) {
+      var brand = document.querySelector('.nav-brand');
+      if (brand) {
+        brand.addEventListener('click', function (e) {
+          e.preventDefault();
+          closePathMenus();
+          closeMobileNav();
+          navigateWithPageFade(homeHref());
+        });
+      }
+    }
+
+    document.querySelectorAll('.nav-path-drop').forEach(function (drop) {
+      var trigger = drop.querySelector('.nav-path-trigger');
+      var menu = drop.querySelector('.nav-path-menu');
+      if (!trigger || !menu) return;
+
+      function openMenu() {
+        closePathMenus(drop);
+        drop.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+        menu.hidden = false;
+      }
+
+      function closeMenu() {
+        drop.classList.remove('is-open');
+        trigger.setAttribute('aria-expanded', 'false');
+        menu.hidden = true;
+      }
+
+      if (canHover) {
+        drop.addEventListener('mouseenter', openMenu);
+        drop.addEventListener('mouseleave', closeMenu);
+      }
+
+      trigger.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var cat = trigger.getAttribute('data-cat');
+
+        if (!isHome) {
+          closePathMenus();
+          navigateWithPageFade(categoryHref(cat));
+          return;
+        }
+
+        if (canHover) {
+          closePathMenus();
+          openCategory(cat, true);
+          return;
+        }
+        if (drop.classList.contains('is-open')) {
+          closeMenu();
+          openCategory(cat, true);
+        } else {
+          openMenu();
+        }
+      });
+
+      menu.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          closePathMenus();
+          closeMobileNav();
+        });
+      });
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.nav-path-drop')) closePathMenus();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closePathMenus();
+    });
+  }
+
+  function initCategoryScreens() {
+    var home = document.getElementById('home-screen');
+    var category = document.getElementById('category-screen');
+    if (!home || !category) return;
+
+    document.querySelectorAll('.cat-hub-btn[data-cat]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        openCategory(btn.getAttribute('data-cat'), true);
+      });
+    });
+
+    var back = document.getElementById('category-back');
+    if (back) {
+      back.addEventListener('click', function () {
+        goHome(true);
+      });
+    }
+
+    var brand = document.querySelector('.nav-brand');
+    if (brand) {
+      brand.addEventListener('click', function (e) {
+        e.preventDefault();
+        goHome(true);
+      });
+    }
+
+    var hashCat = normalizeCat(location.hash);
+    if (hashCat) setView('category', hashCat);
+    else setView('home');
+    try {
+      document.documentElement.removeAttribute('data-open-cat');
+    } catch (e) { /* ignore */ }
+    playEnterPageFade();
+
+    window.addEventListener('hashchange', function () {
+      var next = normalizeCat(location.hash);
+      if (next) openCategory(next, true);
+      else if (!location.hash || location.hash === '#' || location.hash === '#top') goHome(true);
+    });
+  }
+
+  /* ---- Hero typewriter ---- */
+  function initHeroTypewriter() {
+    var textEl = document.getElementById('hero-type-text');
+    if (!textEl || textEl.getAttribute('data-typing') === '1') return;
+    textEl.setAttribute('data-typing', '1');
+
+    var lines = [
+      '14 Computers and counting',
+      'RIP Commodore C=',
+      'Hello World',
+      'All vibe coded, Sorry',
+      'NanoLab: Because Arduinos didn\'t have an OS',
+      'QTOS: what if bits had a third option',
+      'This website boots harder than my laptop',
+      'Did I make a dent in the universe?',
+      'https://github.com/intelgenv2',
+      'Did I put the wrong version of my code in the repo?'
+    ];
+
+    var lineIndex = 0;
+    var charIndex = 0;
+    var deleting = false;
+    var holdUntil = 0;
+    var typingMs = 38;
+    var deletingMs = 22;
+    var holdMs = 5000;
+
+    function tick() {
+      var now = Date.now();
+      var line = lines[lineIndex];
+
+      if (holdUntil && now < holdUntil) {
+        setTimeout(tick, Math.min(120, holdUntil - now));
+        return;
+      }
+      holdUntil = 0;
+
+      if (!deleting) {
+        charIndex = Math.min(charIndex + 1, line.length);
+        textEl.textContent = line.slice(0, charIndex);
+        if (charIndex === line.length) {
+          if (reduced) {
+            return;
+          }
+          deleting = true;
+          holdUntil = now + holdMs;
+          setTimeout(tick, holdMs);
+          return;
+        }
+        setTimeout(tick, typingMs + Math.floor(Math.random() * 28));
+        return;
+      }
+
+      charIndex = Math.max(charIndex - 1, 0);
+      textEl.textContent = line.slice(0, charIndex);
+      if (charIndex === 0) {
+        deleting = false;
+        lineIndex = (lineIndex + 1) % lines.length;
+        setTimeout(tick, 280);
+        return;
+      }
+      setTimeout(tick, deletingMs);
+    }
+
+    if (reduced) {
+      textEl.textContent = lines[0];
+      return;
+    }
+
+    textEl.textContent = '';
+    setTimeout(tick, 420);
+  }
 
   /* ---- Scroll reveals ---- */
   function initReveals() {
@@ -119,7 +626,7 @@
           }
         });
       },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.12 }
+      { rootMargin: '180px 0px 120px 0px', threshold: 0 }
     );
 
     nodes.forEach(function (n) {
@@ -129,10 +636,11 @@
 
   /* ---- Soft parallax on backdrop via scroll ---- */
   var backdrop = document.getElementById('backdrop');
-  if (backdrop && !reduced) {
+  if (backdrop && !prefersReduced) {
     window.addEventListener(
       'scroll',
       function () {
+        if (reduced) return;
         var y = window.scrollY * 0.04;
         backdrop.style.transform = 'translateY(' + y + 'px)';
       },
@@ -140,10 +648,10 @@
     );
   }
 
-  /* ---- Rain only over the hero / title screen ---- */
+  /* ---- Rain clipped to hero / title screen ---- */
   function updateRainClip() {
     var canvas = document.getElementById('rainCanvas');
-    var hero = document.querySelector('.hero');
+    var hero = document.getElementById('home-screen') || document.querySelector('.hero');
     if (!canvas || !hero) return;
 
     if (document.body.classList.contains('boot-active') ||
@@ -153,7 +661,31 @@
       return;
     }
 
+    /* Don't sample layout while CRT is scaling — rects collapse to ~0 and hide rain */
+    if (crtBusy ||
+        document.body.classList.contains('crt-powering-off') ||
+        document.body.classList.contains('crt-blackout') ||
+        document.body.classList.contains('crt-powering-on')) {
+      syncMatrixRain();
+      return;
+    }
+
+    var homeActive = hero.classList.contains('is-active') && !hero.hidden;
+    if (!homeActive) {
+      canvas.style.clipPath = '';
+      canvas.classList.remove('rain-hero-only');
+      syncMatrixRain();
+      return;
+    }
+
     var rect = hero.getBoundingClientRect();
+    if (rect.width < 8 || rect.height < 8) {
+      canvas.style.clipPath = '';
+      canvas.classList.remove('rain-hero-only');
+      syncMatrixRain();
+      return;
+    }
+
     var top = Math.max(0, rect.top);
     var right = Math.max(0, window.innerWidth - rect.right);
     var bottom = Math.max(0, window.innerHeight - rect.bottom);
@@ -163,11 +695,7 @@
     canvas.style.clipPath =
       'inset(' + top + 'px ' + right + 'px ' + bottom + 'px ' + left + 'px)';
 
-    if (window.IntelGenRain) {
-      var visible = rect.bottom > 0 && rect.top < window.innerHeight;
-      if (visible) window.IntelGenRain.resume();
-      else window.IntelGenRain.pause();
-    }
+    syncMatrixRain();
   }
 
   window.addEventListener('scroll', updateRainClip, { passive: true });
@@ -324,12 +852,13 @@
   applyTheme(savedTheme);
 
   function initScreenGlitch() {
-    if (reduced) return;
     var overlay = document.getElementById('screen-glitch');
     var hero = document.querySelector('.hero');
     if (!overlay || !hero) return;
 
     var heroInView = true;
+    var stopped = screenGlitchOff();
+    var scheduled = false;
 
     function updateHeroVisibility() {
       var rect = hero.getBoundingClientRect();
@@ -345,7 +874,7 @@
     updateHeroVisibility();
 
     function burst() {
-      if (!heroInView) return;
+      if (stopped || screenGlitchOff() || !heroInView) return;
       document.body.classList.add('screen-glitching');
       var duration = 160 + Math.floor(Math.random() * 180);
       setTimeout(function () {
@@ -354,27 +883,116 @@
     }
 
     function schedule() {
-      var wait = 2800 + Math.floor(Math.random() * 6500);
-      setTimeout(function () {
-        if (heroInView) {
-          burst();
-          if (Math.random() < 0.28) {
-            setTimeout(burst, 220 + Math.floor(Math.random() * 260));
+      if (scheduled) return;
+      scheduled = true;
+      (function loop() {
+        var wait = 2800 + Math.floor(Math.random() * 6500);
+        setTimeout(function () {
+          if (!stopped && heroInView && !screenGlitchOff()) {
+            burst();
+            if (Math.random() < 0.28) {
+              setTimeout(burst, 220 + Math.floor(Math.random() * 260));
+            }
           }
-        }
-        schedule();
-      }, wait);
+          loop();
+        }, wait);
+      })();
     }
 
-    schedule();
+    if (!stopped) schedule();
+
+    window.IntelGenGlitch = {
+      stop: function () {
+        stopped = true;
+        document.body.classList.remove('screen-glitching');
+      },
+      start: function () {
+        stopped = false;
+        schedule();
+      }
+    };
+  }
+
+  function applyFxPreference(on) {
+    fxEnabled = !!on;
+    document.documentElement.classList.toggle('fx-off', !fxEnabled);
+    var btn = document.getElementById('fx-toggle');
+    if (btn) btn.setAttribute('aria-pressed', fxEnabled ? 'true' : 'false');
+    try {
+      localStorage.setItem('intelgen-fx', fxEnabled ? '1' : '0');
+    } catch (e) { /* ignore */ }
+  }
+
+  function applyGlitchPreference(on) {
+    glitchEnabled = !!on;
+    document.documentElement.classList.toggle('glitch-off', !glitchEnabled);
+    var btn = document.getElementById('glitch-toggle');
+    if (btn) btn.setAttribute('aria-pressed', glitchEnabled ? 'true' : 'false');
+    try {
+      localStorage.setItem('intelgen-glitch', glitchEnabled ? '1' : '0');
+    } catch (e) { /* ignore */ }
+    if (!glitchEnabled) {
+      document.body.classList.remove('screen-glitching');
+      if (window.IntelGenGlitch) window.IntelGenGlitch.stop();
+    } else if (window.IntelGenGlitch) {
+      window.IntelGenGlitch.start();
+    }
+  }
+
+  function applyMatrixPreference(on) {
+    matrixEnabled = !!on;
+    document.documentElement.classList.toggle('matrix-off', !matrixEnabled);
+    var btn = document.getElementById('matrix-toggle');
+    if (btn) btn.setAttribute('aria-pressed', matrixEnabled ? 'true' : 'false');
+    try {
+      localStorage.setItem('intelgen-matrix', matrixEnabled ? '1' : '0');
+    } catch (e) { /* ignore */ }
+    syncMatrixRain();
+  }
+
+  function initEffectToggles() {
+    var fxBtn = document.getElementById('fx-toggle');
+    var glitchBtn = document.getElementById('glitch-toggle');
+    var matrixBtn = document.getElementById('matrix-toggle');
+
+    if (fxBtn) {
+      fxBtn.setAttribute('aria-pressed', fxEnabled ? 'true' : 'false');
+      fxBtn.addEventListener('click', function () {
+        applyFxPreference(!fxEnabled);
+      });
+    }
+
+    if (glitchBtn) {
+      glitchBtn.setAttribute('aria-pressed', glitchEnabled ? 'true' : 'false');
+      glitchBtn.addEventListener('click', function () {
+        applyGlitchPreference(!glitchEnabled);
+      });
+    }
+
+    if (matrixBtn) {
+      matrixBtn.setAttribute('aria-pressed', matrixEnabled ? 'true' : 'false');
+      matrixBtn.addEventListener('click', function () {
+        applyMatrixPreference(!matrixEnabled);
+      });
+    }
+
+    syncMatrixRain();
   }
 
   window.IntelGenSite = {
     onReady: function () {
+      initEffectToggles();
+      initPathDropdowns();
+      initCategoryScreens();
+      if (!document.getElementById('home-screen')) {
+        currentCat = detectPageCategory();
+        playEnterPageFade();
+      }
       initReveals();
       updateActiveNav();
       updateRainClip();
       initScreenGlitch();
+      initHeroTypewriter();
     },
     setTheme: applyTheme
   };

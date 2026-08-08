@@ -11,8 +11,8 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="ESP32 + FabGL VGA OS with a Win98-style desktop, explorer, terminal, and SD-card apps." />
-  <title>NanoLab GUI — IntelGen</title>
+  <meta name="description" content="Nano R4 + classic Nano VGA BASIC mini-PC — dual-mode NL1/NL2, SD card, and an 8 KB program buffer." />
+  <title>NanoLab 2 — IntelGen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
@@ -100,36 +100,47 @@
     </header>
 
     <main class="page-main">
-      <div class="site-inner" style="--page-accent: #f0a020">
+      <div class="site-inner" style="--page-accent: #ff8a1a">
         <header class="page-header reveal reveal-delay-1">
-          <p class="page-code">NL-03</p>
-          <h1 class="page-title">NanoLab GUI</h1>
+          <p class="page-code">NL-02</p>
+          <h1 class="page-title">NanoLab 2</h1>
           <div class="page-meta">
             <span class="page-type">Hardware</span>
           </div>
-          <p class="page-lead">ESP32 + FabGL VGA OS with a Win98-style desktop, explorer, terminal, and SD-card apps.</p>
+          <p class="page-lead">Nano R4 CPU + classic Nano VGA GPU — dual-mode BASIC, microSD, and room to actually write programs.</p>
         </header>
         <article class="page-body reveal reveal-delay-2">
           <h2>OVERVIEW</h2>
-          <p>NanoLab GUI pushes the hardware line beyond a BASIC prompt into a full VGA desktop. Running on ESP32 with FabGL, it presents a Win98-inspired shell — login, explorer, terminal, and apps loaded from SD.</p>
-          <p>Where NanoLab focuses on the interpreter machine, this build is about the OS surface: windows, scripts, and the feeling of a small personal computer.</p>
+          <p>NanoLab 2 keeps the dual-board idea from NanoLab 1, but moves the CPU to an Arduino Nano R4. The GPU stays a classic Nano driving VGA text. Bigger buffer, SD file I/O, and two real BASIC dialects instead of one integer dialect.</p>
+          <h2>WHAT IT CAN DO</h2>
+          <ul>
+            <li>Switch dialects: <code>NL1</code> (integer 1.7) or <code>NL2</code> (float BASIC)</li>
+            <li><strong>NL2:</strong> floats, strings (<code>A$</code>), <code>DIM</code>, <code>ELSE</code>, <code>WHILE</code>, <code>ON GOTO</code>, <code>STOP</code>/<code>CONT</code>, logic ops, <code>STR$</code>/<code>INSTR</code>, <code>BEEP</code>/<code>SOUND</code>/<code>PLAY</code>, <code>GET</code>/<code>INKEY$</code></li>
+            <li><strong>NL1:</strong> classic integer mode with <code>.</code> / <code>?</code> / <code>!</code> aliases and <code>TONE</code>/<code>TONEW</code></li>
+            <li>8 KB program buffer (was ~1 KB on NanoLab 1) and deeper FOR/GOSUB stacks</li>
+            <li>Load and save programs from microSD: <code>LOAD</code>, <code>SAVE</code>, <code>FILES</code>, <code>CHAIN</code></li>
+            <li>Still has EEPROM tools: <code>ELOAD</code>, <code>ESAVE</code>, <code>ECHAIN</code>, <code>ELIST</code>, <code>EFORMAT</code></li>
+            <li>PS/2 keyboard on the R4, USB serial separate from the GPU link</li>
+            <li>Same VGA text terminal feel — clear, color cycle, block graphics</li>
+          </ul>
           <h2>HIGHLIGHTS</h2>
           <ul>
-            <li>ESP32 + FabGL VGA graphics stack</li>
-            <li>Win98-style UI (login, explorer, terminal)</li>
-            <li>SD card apps / NanoScript samples</li>
-            <li>Companion to the NanoLab BASIC hardware line</li>
+            <li>CPU: Arduino Nano R4 · GPU: Arduino Nano + VGAX</li>
+            <li>Separate keyword tables per dialect — not a thin overlay</li>
+            <li>SPI microSD on the CPU board</li>
+            <li>Boot password, memory bars, then the <code>&gt;</code> prompt</li>
           </ul>
           <ul class="page-specs">
-            <li><strong>Stack</strong> ESP32 · FabGL · VGA</li>
-            <li><strong>Storage</strong> SD card apps</li>
-            <li><strong>UI</strong> Desktop / explorer / terminal</li>
-            <li><strong>Era vibe</strong> Late-90s workstation</li>
+            <li><strong>Stack</strong> Nano R4 · Nano VGA · dual-mode BASIC</li>
+            <li><strong>Input</strong> PS/2 keyboard · USB upload</li>
+            <li><strong>Display</strong> VGA text GPU board</li>
+            <li><strong>Language</strong> NL1 integer · NL2 float/string</li>
+            <li><strong>Storage</strong> 8 KB buffer · SD · EEPROM</li>
           </ul>
         </article>
-                <nav class="page-nav reveal reveal-delay-3" aria-label="Project navigation">
-          <a class="btn btn-ghost" href="nanolab-2.html">&larr; NanoLab 2</a>
-          <a class="btn btn-ghost" href="retro-computers.html">Retro Computers &rarr;</a>
+        <nav class="page-nav reveal reveal-delay-3" aria-label="Project navigation">
+          <a class="btn btn-ghost" href="nanolab.html">&larr; NanoLab 1</a>
+          <a class="btn btn-ghost" href="nanolab-gui.html">NanoLab GUI &rarr;</a>
         </nav>
       </div>
     </main>

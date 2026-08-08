@@ -13,7 +13,7 @@ body.page-mode #site.site-ready {
 }
 
 .page-main {
-  padding-top: calc(var(--nav-h) + 3.5rem);
+  padding-top: calc(var(--nav-h) + 1.75rem);
   padding-bottom: 4rem;
   position: relative;
   z-index: 10;
@@ -172,9 +172,7 @@ body.page-mode #site.site-ready {
   border-top: 1px solid var(--border);
 }
 
-/* Keep project prev/next buttons visually matched (no pulsing primary) */
-.page-nav .btn,
-.page-nav .btn-primary,
+/* Prev / next project links */
 .page-nav .btn-ghost {
   border: 1px solid var(--border);
   background: rgba(14, 8, 2, 0.55);
@@ -183,15 +181,25 @@ body.page-mode #site.site-ready {
   animation: none;
 }
 
-.page-nav .btn:hover,
-.page-nav .btn-primary:hover,
+.page-nav .btn-primary {
+  border: 1px solid var(--red-bright);
+  background: linear-gradient(180deg, var(--red-bright) 0%, var(--red) 55%, var(--accent-deep) 100%);
+  color: #fff;
+  box-shadow: 0 0 24px var(--red-dim);
+  animation: none;
+}
+
 .page-nav .btn-ghost:hover {
   border-color: var(--red-bright);
   background: var(--red-dim);
   color: #fff;
-  transform: translateY(-2px);
   box-shadow: 0 0 16px var(--red-dim);
   text-shadow: none;
+}
+
+.page-nav .btn-primary:hover {
+  box-shadow: 0 0 32px var(--red-glow);
+  filter: brightness(1.06);
 }
 
 .archive-intro {

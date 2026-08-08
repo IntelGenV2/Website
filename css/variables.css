@@ -1,6 +1,8 @@
 /* IntelGen V2 — design tokens (flame orange primary) */
 
 :root {
+  --crt-origin-x: 50%;
+  --crt-origin-y: 50%;
   --red: #ff6a00;
   --red-bright: #ffb020;
   --red-dim: rgba(255, 106, 0, 0.45);
@@ -17,6 +19,7 @@
   --radius: 6px;
   --transition: 0.25s ease;
   --nav-h: 64px;
+  --dock-h: 5.25rem;
   --accent-deep: #8b3a00;
 
   /* Module / project channel colors */
@@ -27,12 +30,20 @@
   --ch-shelf: #b56bff;
   --ch-ideas: #8a9bb0;
   --ch-nanolab: #ff6a00;
+  --ch-nanolab2: #ff8a1a;
   --ch-nanogui: #f0a020;
   --ch-sysbuild: #2ec4ff;
   --ch-qtos: #6eff9a;
   --ch-revival: #b56bff;
   --ch-intelgen: #ff3355;
+  --ch-launcher: #ff4d6d;
   --ch-mayhem: #8a9bb0;
+
+  /* Project category colors */
+  --cat-system: #2ec4ff;
+  --cat-intelgen: #ff3355;
+  --cat-nanolab: #ff6a00;
+  --cat-misc: #6eff9a;
 }
 
 *,

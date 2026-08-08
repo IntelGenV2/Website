@@ -47,6 +47,8 @@
   function scrollToHash() {
     var hash = window.location.hash;
     if (!hash) return;
+    /* Category hashes are view switches, not scroll targets */
+    if (/^#?(?:cat-)?(system|intelgen|nanolab|misc)$/i.test(hash.replace(/^#/, ''))) return;
     var el = document.querySelector(hash);
     if (el) {
       requestAnimationFrame(function () {
@@ -169,7 +171,7 @@
     setTimeout(function () {
       if (window.IntelGenSite) window.IntelGenSite.onReady();
       scrollToHash();
-    }, reducedMotion ? 50 : 200);
+    }, document.documentElement.hasAttribute('data-open-cat') || reducedMotion ? 0 : 200);
   }
 
   function finishBoot() {

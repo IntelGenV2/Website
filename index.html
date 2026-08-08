@@ -8,8 +8,25 @@
   <script>
     (function () {
       try {
-        if (location.hash || sessionStorage.getItem('intelgen-session-booted') === '1') {
+        var hash = String(location.hash || '').replace(/^#/, '').replace(/^cat-/, '').toLowerCase();
+        var cats = { system: 1, intelgen: 1, nanolab: 1, misc: 1 };
+        if (hash && cats[hash]) {
           document.documentElement.classList.add('boot-skip');
+          document.documentElement.setAttribute('data-open-cat', hash);
+        } else if (location.hash || sessionStorage.getItem('intelgen-session-booted') === '1') {
+          document.documentElement.classList.add('boot-skip');
+        }
+        if (localStorage.getItem('intelgen-fx') === '0') {
+          document.documentElement.classList.add('fx-off');
+        }
+        if (localStorage.getItem('intelgen-matrix') === '0') {
+          document.documentElement.classList.add('matrix-off');
+        }
+        if (localStorage.getItem('intelgen-glitch') === '0') {
+          document.documentElement.classList.add('glitch-off');
+        }
+        if (sessionStorage.getItem('intelgen-enter-fade') === '1') {
+          document.documentElement.classList.add('enter-fade');
         }
       } catch (e) { /* ignore */ }
     })();
@@ -23,7 +40,7 @@
   <link rel="stylesheet" href="css/animations.css" />
   <link rel="icon" href="assets/logo.png" type="image/png" />
 </head>
-<body class="boot-active">
+<body class="boot-active home-lock">
   <div id="backdrop" aria-hidden="true"></div>
   <div id="cursor-glow" aria-hidden="true"></div>
   <canvas id="rainCanvas" aria-hidden="true"></canvas>
@@ -57,210 +74,342 @@
     </div>
   </div>
 
+  <div id="crt-fx" class="crt-fx" aria-hidden="true">
+    <div class="crt-fx-bloom"></div>
+    <div class="crt-fx-line"></div>
+    <div class="crt-fx-dot"></div>
+  </div>
+
   <div id="site" class="hidden" aria-hidden="true">
     <header class="site-nav">
-      <a class="nav-brand" href="#top">
-        <img src="assets/logo.png" alt="IntelGen" width="140" height="48" />
-      </a>
-      <button type="button" id="nav-toggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">☰</button>
-      <ul id="nav-links" class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-      </ul>
-      <div class="nav-status">
-        <div class="theme-picker" id="theme-picker">
-          <button type="button" id="theme-toggle" class="theme-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="theme-menu" title="Accent color">
-            <span class="theme-toggle-swatch" aria-hidden="true"></span>
-            <span class="theme-toggle-label">COLOR</span>
-          </button>
-          <div id="theme-menu" class="theme-menu hidden" role="menu" aria-label="Accent colors">
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="red" aria-checked="false" title="Red" style="--swatch:#dc143c"><span class="visually-hidden">Red</span></button>
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="orange" aria-checked="true" title="Orange" style="--swatch:#ff6a00"><span class="visually-hidden">Orange</span></button>
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="amber" aria-checked="false" title="Amber" style="--swatch:#e8a000"><span class="visually-hidden">Amber</span></button>
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="green" aria-checked="false" title="Green" style="--swatch:#22c55e"><span class="visually-hidden">Green</span></button>
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="cyan" aria-checked="false" title="Cyan" style="--swatch:#00c8e0"><span class="visually-hidden">Cyan</span></button>
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="blue" aria-checked="false" title="Blue" style="--swatch:#3b82f6"><span class="visually-hidden">Blue</span></button>
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="magenta" aria-checked="false" title="Magenta" style="--swatch:#e040a0"><span class="visually-hidden">Magenta</span></button>
+      <div class="nav-start">
+        <a class="nav-brand" href="#top">
+          <img src="assets/logo.png" alt="IntelGen" width="140" height="48" />
+        </a>
+        <nav id="nav-links" class="nav-links nav-path" aria-label="Project paths">
+          <span class="nav-path-root">C:\</span>
+          <button type="button" class="nav-path-trigger nav-path-home" id="nav-home" data-home aria-label="Home">HOME</button>
+          <span class="nav-path-sep">\</span>
+          <div class="nav-path-drop" data-cat="system">
+            <button type="button" class="nav-path-trigger" data-cat="system" aria-expanded="false" aria-haspopup="true" aria-controls="menu-system">SYSTEM</button>
+            <div id="menu-system" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="projects/system-build.html">System Build</a>
+              <a role="menuitem" href="projects/system-revival.html">System Revival</a>
+            </div>
           </div>
+          <span class="nav-path-sep">\</span>
+          <div class="nav-path-drop" data-cat="intelgen">
+            <button type="button" class="nav-path-trigger" data-cat="intelgen" aria-expanded="false" aria-haspopup="true" aria-controls="menu-intelgen">INTELGEN</button>
+            <div id="menu-intelgen" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="projects/intelgen-app.html">IntelGen App</a>
+              <a role="menuitem" href="projects/intelgen-game-launcher.html">Game Launcher</a>
+            </div>
+          </div>
+          <span class="nav-path-sep">\</span>
+          <div class="nav-path-drop" data-cat="nanolab">
+            <button type="button" class="nav-path-trigger" data-cat="nanolab" aria-expanded="false" aria-haspopup="true" aria-controls="menu-nanolab">NANOLAB</button>
+            <div id="menu-nanolab" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="projects/nanolab.html">NanoLab 1</a>
+              <a role="menuitem" href="projects/nanolab-2.html">NanoLab 2</a>
+              <a role="menuitem" href="projects/nanolab-gui.html">NanoLab GUI</a>
+            </div>
+          </div>
+          <span class="nav-path-sep">\</span>
+          <div class="nav-path-drop" data-cat="misc">
+            <button type="button" class="nav-path-trigger" data-cat="misc" aria-expanded="false" aria-haspopup="true" aria-controls="menu-misc">MISC</button>
+            <div id="menu-misc" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="projects/retro-computers.html">Retro Computers</a>
+              <a role="menuitem" href="projects/qtos.html">QTOS</a>
+              <a role="menuitem" href="projects/gun-mayhem-3.html">Gun Mayhem 3</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-end">
+        <button type="button" id="nav-toggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">☰</button>
+        <div class="nav-status">
+          <button type="button" id="fx-toggle" class="fx-switch" aria-pressed="true" title="Toggle CRT transitions">CRT</button>
+          <button type="button" id="glitch-toggle" class="fx-switch" aria-pressed="true" title="Toggle screen glitch">GLITCH</button>
+          <button type="button" id="matrix-toggle" class="fx-switch" aria-pressed="true" title="Toggle matrix rain">RAIN</button>
+          <div class="theme-picker" id="theme-picker">
+            <button type="button" id="theme-toggle" class="theme-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="theme-menu" title="Accent color">
+              <span class="theme-toggle-swatch" aria-hidden="true"></span>
+              <span class="theme-toggle-label">COLOR</span>
+            </button>
+            <div id="theme-menu" class="theme-menu hidden" role="menu" aria-label="Accent colors">
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="red" aria-checked="false" title="Red" style="--swatch:#dc143c"><span class="visually-hidden">Red</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="orange" aria-checked="true" title="Orange" style="--swatch:#ff6a00"><span class="visually-hidden">Orange</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="amber" aria-checked="false" title="Amber" style="--swatch:#e8a000"><span class="visually-hidden">Amber</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="green" aria-checked="false" title="Green" style="--swatch:#22c55e"><span class="visually-hidden">Green</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="cyan" aria-checked="false" title="Cyan" style="--swatch:#00c8e0"><span class="visually-hidden">Cyan</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="blue" aria-checked="false" title="Blue" style="--swatch:#3b82f6"><span class="visually-hidden">Blue</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="magenta" aria-checked="false" title="Magenta" style="--swatch:#e040a0"><span class="visually-hidden">Magenta</span></button>
+            </div>
+          </div>
+          <span id="live-clock" class="live-clock">--:--:--</span>
+          <span class="status-pill" id="sys-status">ONLINE</span>
         </div>
-        <span id="live-clock" class="live-clock">--:--:--</span>
-        <span class="status-pill" id="sys-status">ONLINE</span>
       </div>
     </header>
 
     <main id="top">
-      <section class="hero" aria-label="IntelGen hero">
-        <div id="screen-glitch" aria-hidden="true"></div>
-        <div class="hero-bezel" aria-hidden="true">
-          <span class="bezel-corner bezel-tl"></span>
-          <span class="bezel-corner bezel-tr"></span>
-          <span class="bezel-corner bezel-bl"></span>
-          <span class="bezel-corner bezel-br"></span>
-        </div>
-        <div class="hero-content">
-          <h1 class="hero-brand" data-text="IntelGenV2">
-            <span class="hero-brand-text">IntelGenV2</span>
-            <span class="hero-version">.com</span>
-          </h1>
-          <p class="hero-tagline">Hardware, software, and vintage systems<span class="blink-cursor" aria-hidden="true"></span></p>
-          <div class="hero-cta">
-            <a class="btn btn-primary" href="#projects">View projects</a>
-            <a class="btn btn-ghost" href="#about">About</a>
+      <div id="crt-stage" class="crt-stage">
+        <section id="home-screen" class="hero view view-home is-active" aria-label="IntelGen home">
+          <div id="screen-glitch" aria-hidden="true"></div>
+          <div class="hero-bezel" aria-hidden="true">
+            <span class="bezel-corner bezel-tl"></span>
+            <span class="bezel-corner bezel-tr"></span>
+            <span class="bezel-corner bezel-bl"></span>
+            <span class="bezel-corner bezel-br"></span>
           </div>
-        </div>
-      </section>
+          <div class="hero-content">
+            <h1 class="hero-brand" data-text="IntelGenV2">
+              <span class="hero-brand-text">IntelGenV2</span>
+              <span class="hero-version">.com</span>
+            </h1>
+            <p class="hero-tagline" aria-live="polite">
+              <span id="hero-type-text"></span><span class="blink-cursor" aria-hidden="true"></span>
+            </p>
+          </div>
+          <nav id="cat-dock" class="cat-dock" aria-label="Project categories">
+            <button type="button" class="cat-hub-btn" data-cat="system" style="--cat-color: var(--cat-system)">
+              <span class="cat-hub-code">SYS</span>
+              <span class="cat-hub-name">System</span>
+            </button>
+            <button type="button" class="cat-hub-btn" data-cat="intelgen" style="--cat-color: var(--cat-intelgen)">
+              <span class="cat-hub-code">IG</span>
+              <span class="cat-hub-name">IntelGen</span>
+            </button>
+            <button type="button" class="cat-hub-btn" data-cat="nanolab" style="--cat-color: var(--cat-nanolab)">
+              <span class="cat-hub-code">NL</span>
+              <span class="cat-hub-name">NanoLab</span>
+            </button>
+            <button type="button" class="cat-hub-btn" data-cat="misc" style="--cat-color: var(--cat-misc)">
+              <span class="cat-hub-code">MSC</span>
+              <span class="cat-hub-name">Misc</span>
+            </button>
+          </nav>
+        </section>
 
-      <section id="about" class="section">
-        <div class="site-inner">
-          <p class="section-label reveal">DIR // ABOUT</p>
-          <h2 class="section-title reveal reveal-delay-1">What this is</h2>
-          <p class="section-lead reveal reveal-delay-2">IntelGen is a lab label for builds from the bench — DIY computers, games, and experiments that lean into retro hardware and old-machine aesthetics.</p>
-          <div class="about-grid">
-            <div class="about-copy reveal reveal-delay-3">
-              <p>Some projects live in solder and VGA; others live in browsers, Unity, or Electron. One of them is a CRT-styled command dashboard. The rest span BASIC mini-PCs, ternary OS playgrounds, PC fabricator games, and arena fighters.</p>
-              <p>The look of this site — BIOS boot, scanlines, phosphor glow — is the same language those machines speak.</p>
-              <p class="signal-line"><span>SIGNAL</span> <span id="channel-armed">Orange channel armed</span> · bench active · uplink online</p>
+        <section id="category-screen" class="view view-category" hidden aria-hidden="true" aria-label="Category projects">
+          <div class="site-inner category-inner">
+            <header class="category-header">
+              <button type="button" class="btn btn-ghost" id="category-back">&larr; Home</button>
+              <p class="dir-path" id="category-path">C:\HOME</p>
+              <h2 class="section-title" id="category-title">Projects</h2>
+            </header>
+            <div id="category-panels">
+              <div class="category-panel" data-cat="system" hidden>
+                <ul class="module-list project-list">
+                  <li>
+                    <div class="module-item" data-channel="sysbuild">
+                      <a class="module-item-link" href="projects/system-build.html">
+                        <span class="module-code">SYS-01</span>
+                        <div>
+                          <div class="project-head">
+                            <h3 class="module-name">System Build</h3>
+                            <span class="project-type">Game</span>
+                          </div>
+                          <p class="project-path">C:\PROJECTS\SYSTEM BUILD</p>
+                          <p class="module-desc">Browser fabricator game: buy PC parts, wire a schematic, and progress through computer eras.</p>
+                          <p class="module-more">OPEN →</p>
+                        </div>
+                      </a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="module-item" data-channel="revival">
+                      <a class="module-item-link" href="projects/system-revival.html">
+                        <span class="module-code">SYS-02</span>
+                        <div>
+                          <div class="project-head">
+                            <h3 class="module-name">System Revival</h3>
+                            <span class="project-type">Game</span>
+                          </div>
+                          <p class="project-path">C:\PROJECTS\SYSTEM REVIVAL</p>
+                          <p class="module-desc">Unity FPS where a diagnostic bot repairs a 90s PC from inside the motherboard.</p>
+                          <p class="module-more">OPEN →</p>
+                        </div>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="category-panel" data-cat="intelgen" hidden>
+                <ul class="module-list project-list">
+                  <li>
+                    <div class="module-item" data-channel="intelgen">
+                      <a class="module-item-link" href="projects/intelgen-app.html">
+                        <span class="module-code">IG-01</span>
+                        <div>
+                          <div class="project-head">
+                            <h3 class="module-name">IntelGen App</h3>
+                            <span class="project-type">Software</span>
+                          </div>
+                          <p class="project-path">C:\PROJECTS\INTELGEN APP</p>
+                          <p class="module-desc">CRT command dashboard for tasks, builds, parts, and ideas — one project in the lab, not the whole lab.</p>
+                          <p class="module-more">OPEN →</p>
+                        </div>
+                      </a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="module-item" data-channel="launcher">
+                      <a class="module-item-link" href="projects/intelgen-game-launcher.html">
+                        <span class="module-code">IG-02</span>
+                        <div>
+                          <div class="project-head">
+                            <h3 class="module-name">IntelGen Game Launcher</h3>
+                            <span class="project-type">Software</span>
+                          </div>
+                          <p class="project-path">C:\PROJECTS\INTELGEN\GAME LAUNCHER</p>
+                          <p class="module-desc">Windows launcher that pulls Steam, Epic, GOG, and more into one cover-art library.</p>
+                          <p class="module-more">OPEN →</p>
+                        </div>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="category-panel" data-cat="nanolab" hidden>
+                <ul class="module-list project-list">
+                  <li>
+                    <div class="module-item" data-channel="nanolab">
+                      <a class="module-item-link" href="projects/nanolab.html">
+                        <span class="module-code">NL-01</span>
+                        <div>
+                          <div class="project-head">
+                            <h3 class="module-name">NanoLab 1</h3>
+                            <span class="project-type">Hardware</span>
+                          </div>
+                          <p class="project-path">C:\PROJECTS\NANO LAB\1</p>
+                          <p class="module-desc">Arduino BASIC mini-PC with a dual-Nano CPU and VGA GPU — a real machine you can type into.</p>
+                          <p class="module-more">OPEN →</p>
+                        </div>
+                      </a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="module-item" data-channel="nanolab2">
+                      <a class="module-item-link" href="projects/nanolab-2.html">
+                        <span class="module-code">NL-02</span>
+                        <div>
+                          <div class="project-head">
+                            <h3 class="module-name">NanoLab 2</h3>
+                            <span class="project-type">Hardware</span>
+                          </div>
+                          <p class="project-path">C:\PROJECTS\NANO LAB\2</p>
+                          <p class="module-desc">Nano R4 + VGA Nano — dual-mode BASIC, microSD, and an 8 KB program buffer.</p>
+                          <p class="module-more">OPEN →</p>
+                        </div>
+                      </a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="module-item" data-channel="nanogui">
+                      <a class="module-item-link" href="projects/nanolab-gui.html">
+                        <span class="module-code">NL-03</span>
+                        <div>
+                          <div class="project-head">
+                            <h3 class="module-name">NanoLab GUI</h3>
+                            <span class="project-type">Hardware</span>
+                          </div>
+                          <p class="project-path">C:\PROJECTS\NANO LAB\GUI</p>
+                          <p class="module-desc">ESP32 + FabGL VGA OS with a Win98-style desktop, explorer, terminal, and SD-card apps.</p>
+                          <p class="module-more">OPEN →</p>
+                        </div>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="category-panel" data-cat="misc" hidden>
+                <ul class="module-list project-list">
+                  <li>
+                    <div class="module-item" data-channel="projects">
+                      <a class="module-item-link" href="projects/retro-computers.html">
+                        <span class="module-code">MSC-01</span>
+                        <div>
+                          <div class="project-head">
+                            <h3 class="module-name">Retro Computers</h3>
+                            <span class="project-type">Collection</span>
+                          </div>
+                          <p class="project-path">C:\PROJECTS\RETRO COMPUTERS</p>
+                          <p class="module-desc">Personal fleet: C64, VIC-20, Amiga 500, Apple IIe, Mac Plus, iMac G3, Dell Vostro 200 (XP).</p>
+                          <p class="module-more">OPEN →</p>
+                        </div>
+                      </a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="module-item" data-channel="qtos">
+                      <a class="module-item-link" href="projects/qtos.html">
+                        <span class="module-code">MSC-02</span>
+                        <div>
+                          <div class="project-head">
+                            <h3 class="module-name">QTOS</h3>
+                            <span class="project-type">Software</span>
+                          </div>
+                          <p class="project-path">C:\PROJECTS\QTOS</p>
+                          <p class="module-desc">Quantified Ternary Operating System — a Python OS terminal shell.</p>
+                          <p class="module-more">OPEN →</p>
+                        </div>
+                      </a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="module-item" data-channel="mayhem">
+                      <a class="module-item-link" href="projects/gun-mayhem-3.html">
+                        <span class="module-code">MSC-03</span>
+                        <div>
+                          <div class="project-head">
+                            <h3 class="module-name">Gun Mayhem 3</h3>
+                            <span class="project-type">Game</span>
+                          </div>
+                          <p class="project-path">C:\PROJECTS\GUN MAYHEM 3</p>
+                          <p class="module-desc">Godot local-multiplayer arena fighter with versus, campaign, and challenge modes.</p>
+                          <p class="module-more">OPEN →</p>
+                        </div>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section id="projects" class="section">
-        <div class="site-inner">
-          <p class="section-label reveal">DIR // PROJECTS</p>
-          <h2 class="section-title reveal reveal-delay-1">Projects</h2>
-          <p class="section-lead reveal reveal-delay-2">A directory of hardware builds, games, and software experiments. Open a drive for the full brief.</p>
-          <p class="dir-path reveal reveal-delay-2" aria-hidden="true">C:\INTELGEN\PROJECTS\&gt;</p>
-          <ul class="module-list project-list">
-            <li>
-              <a class="module-item reveal reveal-delay-1" data-channel="projects" href="projects/retro-computers.html">
-                <span class="module-code">HW-00</span>
-                <div>
-                  <div class="project-head">
-                    <h3 class="module-name">Retro Computers</h3>
-                    <span class="project-type">Collection</span>
-                  </div>
-                  <p class="project-path">C:\PROJECTS\RETRO COMPUTERS</p>
-                  <p class="module-desc">Personal fleet: C64, VIC-20, Amiga 500, Apple IIe, Mac Plus (7.1), iMac G3 (10.3), Dell Vostro 200 (XP).</p>
-                  <p class="module-more">OPEN →</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a class="module-item reveal reveal-delay-1" data-channel="nanolab" href="projects/nanolab.html">
-                <span class="module-code">HW-01</span>
-                <div>
-                  <div class="project-head">
-                    <h3 class="module-name">NanoLab</h3>
-                    <span class="project-type">Hardware</span>
-                  </div>
-                  <p class="project-path">C:\PROJECTS\NANO LAB</p>
-                  <p class="module-desc">Arduino BASIC mini-PC with a dual-Nano CPU/VGA GPU stack — a real machine you can type into.</p>
-                  <p class="module-more">OPEN →</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a class="module-item reveal reveal-delay-2" data-channel="nanogui" href="projects/nanolab-gui.html">
-                <span class="module-code">HW-02</span>
-                <div>
-                  <div class="project-head">
-                    <h3 class="module-name">NanoLab GUI</h3>
-                    <span class="project-type">Hardware</span>
-                  </div>
-                  <p class="project-path">C:\PROJECTS\NANO LAB\GUI</p>
-                  <p class="module-desc">ESP32 + FabGL VGA OS with a Win98-style desktop, explorer, terminal, and SD-card apps.</p>
-                  <p class="module-more">OPEN →</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a class="module-item reveal reveal-delay-3" data-channel="sysbuild" href="projects/system-build.html">
-                <span class="module-code">SW-01</span>
-                <div>
-                  <div class="project-head">
-                    <h3 class="module-name">System Build</h3>
-                    <span class="project-type">Game</span>
-                  </div>
-                  <p class="project-path">C:\PROJECTS\SYSTEM BUILD</p>
-                  <p class="module-desc">Browser fabricator game: buy PC parts, wire a schematic, and climb bus eras from ISA to PCIe.</p>
-                  <p class="module-more">OPEN →</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a class="module-item reveal reveal-delay-4" data-channel="qtos" href="projects/qtos.html">
-                <span class="module-code">SW-02</span>
-                <div>
-                  <div class="project-head">
-                    <h3 class="module-name">QTOS</h3>
-                    <span class="project-type">Software</span>
-                  </div>
-                  <p class="project-path">C:\PROJECTS\QTOS</p>
-                  <p class="module-desc">Quantified Ternary Operating System — a Python playground for ternary logic and context-driven kernels.</p>
-                  <p class="module-more">OPEN →</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a class="module-item reveal reveal-delay-5" data-channel="revival" href="projects/system-revival.html">
-                <span class="module-code">SW-03</span>
-                <div>
-                  <div class="project-head">
-                    <h3 class="module-name">System Revival</h3>
-                    <span class="project-type">Game</span>
-                  </div>
-                  <p class="project-path">C:\PROJECTS\SYSTEM REVIVAL</p>
-                  <p class="module-desc">Unity FPS where a diagnostic bot repairs a 90s PC from inside the motherboard.</p>
-                  <p class="module-more">OPEN →</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a class="module-item reveal reveal-delay-6" data-channel="intelgen" href="projects/intelgen-app.html">
-                <span class="module-code">SW-04</span>
-                <div>
-                  <div class="project-head">
-                    <h3 class="module-name">IntelGen App</h3>
-                    <span class="project-type">Software</span>
-                  </div>
-                  <p class="project-path">C:\PROJECTS\INTELGEN APP</p>
-                  <p class="module-desc">CRT command dashboard for tasks, builds, parts, and ideas — one project in the lab, not the whole lab.</p>
-                  <p class="module-more">OPEN →</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <a class="module-item reveal reveal-delay-1" data-channel="mayhem" href="projects/gun-mayhem-3.html">
-                <span class="module-code">SW-05</span>
-                <div>
-                  <div class="project-head">
-                    <h3 class="module-name">Gun Mayhem 3</h3>
-                    <span class="project-type">Game</span>
-                  </div>
-                  <p class="project-path">C:\PROJECTS\GUN MAYHEM 3</p>
-                  <p class="module-desc">Godot local-multiplayer arena fighter with versus, campaign, and challenge modes.</p>
-                  <p class="module-more">OPEN →</p>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="site-inner footer-inner">
-        <div class="footer-brand">
-          <img src="assets/logo.png" alt="IntelGen" width="120" height="40" />
-        </div>
-        <p class="footer-copy">
-          <span class="phosphor-ready" aria-hidden="true">■</span>
-          Project lab · <span id="footer-channel">Orange channel armed</span>
-        </p>
+        </section>
       </div>
-    </footer>
+
+      <span id="channel-armed" class="visually-hidden">Orange channel armed</span>
+    </main>
   </div>
+
+  <script>
+    (function () {
+      var cat = document.documentElement.getAttribute('data-open-cat');
+      if (!cat) return;
+      var titles = { system: 'System', intelgen: 'IntelGen', nanolab: 'NanoLab', misc: 'Misc' };
+      var title = document.getElementById('category-title');
+      var path = document.getElementById('category-path');
+      if (title) title.textContent = titles[cat] || 'Projects';
+      if (path) path.textContent = 'C:\\HOME\\' + String(cat).toUpperCase();
+      var home = document.getElementById('home-screen');
+      var category = document.getElementById('category-screen');
+      if (home) {
+        home.classList.remove('is-active');
+        home.setAttribute('hidden', '');
+      }
+      if (category) {
+        category.classList.add('is-active');
+        category.hidden = false;
+        category.removeAttribute('hidden');
+        category.setAttribute('aria-hidden', 'false');
+      }
+      document.querySelectorAll('.category-panel').forEach(function (panel) {
+        panel.hidden = panel.getAttribute('data-cat') !== cat;
+      });
+    })();
+  </script>
 
   <script src="js/matrix-rain.js"></script>
   <script src="js/main.js"></script>

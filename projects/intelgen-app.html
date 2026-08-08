@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('intelgen-fx') === '0') document.documentElement.classList.add('fx-off');
+        if (localStorage.getItem('intelgen-glitch') === '0') document.documentElement.classList.add('glitch-off');
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="CRT command dashboard for tasks, builds, parts, and ideas � one project in the lab, not the whole lab." />
-  <title>IntelGen App � IntelGen</title>
+  <meta name="description" content="CRT command dashboard for tasks, builds, parts, and ideas — one project in the lab, not the whole lab." />
+  <title>IntelGen App — IntelGen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
@@ -22,88 +30,107 @@
 
   <div id="site" class="site-ready" aria-hidden="false">
     <header class="site-nav">
-      <a class="nav-brand" href="../index.html">
-        <img src="../assets/logo.png" alt="IntelGen" width="140" height="48" />
-      </a>
-      <button type="button" id="nav-toggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">?</button>
-      <ul id="nav-links" class="nav-links">
-        <li><a href="../index.html#about">About</a></li>
-        <li><a href="../index.html#projects">Projects</a></li>
-      </ul>
-      <div class="nav-status">
-        <div class="theme-picker" id="theme-picker">
-          <button type="button" id="theme-toggle" class="theme-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="theme-menu" title="Accent color">
-            <span class="theme-toggle-swatch" aria-hidden="true"></span>
-            <span class="theme-toggle-label">COLOR</span>
-          </button>
-          <div id="theme-menu" class="theme-menu hidden" role="menu" aria-label="Accent colors">
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="red" aria-checked="false" title="Red" style="--swatch:#dc143c"><span class="visually-hidden">Red</span></button>
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="orange" aria-checked="true" title="Orange" style="--swatch:#ff6a00"><span class="visually-hidden">Orange</span></button>
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="amber" aria-checked="false" title="Amber" style="--swatch:#e8a000"><span class="visually-hidden">Amber</span></button>
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="green" aria-checked="false" title="Green" style="--swatch:#22c55e"><span class="visually-hidden">Green</span></button>
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="cyan" aria-checked="false" title="Cyan" style="--swatch:#00c8e0"><span class="visually-hidden">Cyan</span></button>
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="blue" aria-checked="false" title="Blue" style="--swatch:#3b82f6"><span class="visually-hidden">Blue</span></button>
-            <button type="button" class="theme-swatch" role="menuitemradio" data-theme="magenta" aria-checked="false" title="Magenta" style="--swatch:#e040a0"><span class="visually-hidden">Magenta</span></button>
+      <div class="nav-start">
+        <a class="nav-brand" href="../index.html">
+          <img src="../assets/logo.png" alt="IntelGen" width="140" height="48" />
+        </a>
+                <nav id="nav-links" class="nav-links nav-path" aria-label="Project paths">
+          <span class="nav-path-root">C:\</span>
+          <button type="button" class="nav-path-trigger nav-path-home" id="nav-home" data-home aria-label="Home">HOME</button>
+          <span class="nav-path-sep">\</span>
+          <div class="nav-path-drop" data-cat="system">
+            <button type="button" class="nav-path-trigger" data-cat="system" aria-expanded="false" aria-haspopup="true" aria-controls="menu-system">SYSTEM</button>
+            <div id="menu-system" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="system-build.html">System Build</a>
+              <a role="menuitem" href="system-revival.html">System Revival</a>
+            </div>
           </div>
+          <span class="nav-path-sep">\</span>
+          <div class="nav-path-drop" data-cat="intelgen">
+            <button type="button" class="nav-path-trigger" data-cat="intelgen" aria-expanded="false" aria-haspopup="true" aria-controls="menu-intelgen">INTELGEN</button>
+            <div id="menu-intelgen" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="intelgen-app.html">IntelGen App</a>
+              <a role="menuitem" href="intelgen-game-launcher.html">Game Launcher</a>
+            </div>
+          </div>
+          <span class="nav-path-sep">\</span>
+          <div class="nav-path-drop" data-cat="nanolab">
+            <button type="button" class="nav-path-trigger" data-cat="nanolab" aria-expanded="false" aria-haspopup="true" aria-controls="menu-nanolab">NANOLAB</button>
+            <div id="menu-nanolab" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="nanolab.html">NanoLab 1</a>
+              <a role="menuitem" href="nanolab-2.html">NanoLab 2</a>
+              <a role="menuitem" href="nanolab-gui.html">NanoLab GUI</a>
+            </div>
+          </div>
+          <span class="nav-path-sep">\</span>
+          <div class="nav-path-drop" data-cat="misc">
+            <button type="button" class="nav-path-trigger" data-cat="misc" aria-expanded="false" aria-haspopup="true" aria-controls="menu-misc">MISC</button>
+            <div id="menu-misc" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="retro-computers.html">Retro Computers</a>
+              <a role="menuitem" href="qtos.html">QTOS</a>
+              <a role="menuitem" href="gun-mayhem-3.html">Gun Mayhem 3</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-end">
+        <button type="button" id="nav-toggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">☰</button>
+        <div class="nav-status">
+          <button type="button" id="fx-toggle" class="fx-switch" aria-pressed="true" title="Toggle CRT transitions">CRT</button>
+          <button type="button" id="glitch-toggle" class="fx-switch" aria-pressed="true" title="Toggle screen glitch">GLITCH</button>
+          <div class="theme-picker" id="theme-picker">
+            <button type="button" id="theme-toggle" class="theme-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="theme-menu" title="Accent color">
+              <span class="theme-toggle-swatch" aria-hidden="true"></span>
+              <span class="theme-toggle-label">COLOR</span>
+            </button>
+            <div id="theme-menu" class="theme-menu hidden" role="menu" aria-label="Accent colors">
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="red" aria-checked="false" title="Red" style="--swatch:#dc143c"><span class="visually-hidden">Red</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="orange" aria-checked="true" title="Orange" style="--swatch:#ff6a00"><span class="visually-hidden">Orange</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="amber" aria-checked="false" title="Amber" style="--swatch:#e8a000"><span class="visually-hidden">Amber</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="green" aria-checked="false" title="Green" style="--swatch:#22c55e"><span class="visually-hidden">Green</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="cyan" aria-checked="false" title="Cyan" style="--swatch:#00c8e0"><span class="visually-hidden">Cyan</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="blue" aria-checked="false" title="Blue" style="--swatch:#3b82f6"><span class="visually-hidden">Blue</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="magenta" aria-checked="false" title="Magenta" style="--swatch:#e040a0"><span class="visually-hidden">Magenta</span></button>
+            </div>
+          </div>
+          <span id="live-clock" class="live-clock">--:--:--</span>
+          <span class="status-pill" id="sys-status">ONLINE</span>
         </div>
-        <span id="live-clock" class="live-clock">--:--:--</span>
-        <span class="status-pill" id="sys-status">ONLINE</span>
       </div>
     </header>
 
     <main class="page-main">
       <div class="site-inner" style="--page-accent: #ff3355">
-        <p class="page-crumb reveal">
-          <a href="../index.html">HOME</a><span>//</span>
-          <a href="../index.html#projects">PROJECTS</a><span>//</span>
-          IntelGen App
-        </p>
         <header class="page-header reveal reveal-delay-1">
-          <p class="page-code">SW-04</p>
+          <p class="page-code">IG-01</p>
           <h1 class="page-title">IntelGen App</h1>
           <div class="page-meta">
             <span class="page-type">Software</span>
-            <p class="page-path">C:\PROJECTS\INTELGEN APP</p>
           </div>
-          <p class="page-lead">CRT command dashboard for tasks, builds, parts, and ideas � one project in the lab, not the whole lab.</p>
+          <p class="page-lead">CRT command dashboard for tasks, builds, parts, and ideas — one project in the lab, not the whole lab.</p>
         </header>
         <article class="page-body reveal reveal-delay-2">
           <h2>OVERVIEW</h2>
-          <p>IntelGen V2 is an Electron (and static HTML) command dashboard styled like a hacker ops deck: matrix rain, scanlines, boot sequence, tasks, projects, shopping, orders, parts shelf, and ideas.</p>
-          <p>On this site it is listed as one build among many � useful on the bench, but not the definition of IntelGen. The lab is bigger than any single dashboard.</p>
+          <p>IntelGen V2 is a HTML command dashboard styled like a hacker ops deck: matrix rain, scanlines, boot sequence, tasks, projects, shopping, orders, parts shelf, and ideas.</p>
           <h2>HIGHLIGHTS</h2>
           <ul>
             <li>Tasks, projects, buy list, orders, parts shelf, ideas</li>
             <li>War Board, Scratch Pad, Bench Reference tools</li>
             <li>Full CRT boot + standby + exit glitch atmosphere</li>
-            <li>Local-first data; Windows packaging via Electron</li>
           </ul>
           <ul class="page-specs">
-            <li><strong>Stack</strong> Electron � HTML � CSS � JS</li>
+            <li><strong>Stack</strong> HTML · CSS · JS</li>
             <li><strong>Focus</strong> Personal command dashboard</li>
             <li><strong>Data</strong> Local-first</li>
             <li><strong>Era vibe</strong> CRT ops deck</li>
           </ul>
         </article>
-        <nav class="page-nav reveal reveal-delay-3" aria-label="Project navigation">
-          <a class="btn btn-ghost" href="../index.html#projects">&larr; All projects</a>
+                <nav class="page-nav reveal reveal-delay-3" aria-label="Project navigation">
           <a class="btn btn-ghost" href="system-revival.html">&larr; System Revival</a>
-          <a class="btn btn-primary" href="gun-mayhem-3.html">Gun Mayhem 3 &rarr;</a>
+          <a class="btn btn-ghost" href="intelgen-game-launcher.html">Game Launcher &rarr;</a>
         </nav>
       </div>
     </main>
-
-    <footer class="site-footer">
-      <div class="site-inner footer-inner">
-        <div class="footer-brand">
-          <img src="../assets/logo.png" alt="IntelGen" width="120" height="40" />
-        </div>
-        <p class="footer-copy">
-          <span class="phosphor-ready" aria-hidden="true">&#9632;</span>
-          Project lab &middot; <span id="footer-channel">Orange channel armed</span>
-        </p>
-      </div>
-    </footer>
   </div>
 
   <span id="channel-armed" class="visually-hidden">Orange channel armed</span>

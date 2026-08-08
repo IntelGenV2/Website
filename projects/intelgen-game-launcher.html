@@ -11,8 +11,8 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="ESP32 + FabGL VGA OS with a Win98-style desktop, explorer, terminal, and SD-card apps." />
-  <title>NanoLab GUI — IntelGen</title>
+  <meta name="description" content="Windows game launcher that pulls Steam, Epic, GOG, and more into one cover-art library." />
+  <title>IntelGen Game Launcher — IntelGen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
@@ -100,36 +100,44 @@
     </header>
 
     <main class="page-main">
-      <div class="site-inner" style="--page-accent: #f0a020">
+      <div class="site-inner" style="--page-accent: #ff4d6d">
         <header class="page-header reveal reveal-delay-1">
-          <p class="page-code">NL-03</p>
-          <h1 class="page-title">NanoLab GUI</h1>
+          <p class="page-code">IG-02</p>
+          <h1 class="page-title">IntelGen Game Launcher</h1>
           <div class="page-meta">
-            <span class="page-type">Hardware</span>
+            <span class="page-type">Software</span>
           </div>
-          <p class="page-lead">ESP32 + FabGL VGA OS with a Win98-style desktop, explorer, terminal, and SD-card apps.</p>
+          <p class="page-lead">Windows desktop launcher that pulls games from multiple stores into one translucent cover-art library.</p>
         </header>
         <article class="page-body reveal reveal-delay-2">
           <h2>OVERVIEW</h2>
-          <p>NanoLab GUI pushes the hardware line beyond a BASIC prompt into a full VGA desktop. Running on ESP32 with FabGL, it presents a Win98-inspired shell — login, explorer, terminal, and apps loaded from SD.</p>
-          <p>Where NanoLab focuses on the interpreter machine, this build is about the OS surface: windows, scripts, and the feeling of a small personal computer.</p>
+          <p>IntelGen Game Launcher is a Tauri + React app for Windows. It discovers installed games across stores, shows them as a cover-art grid, and launches from one place — with search, filters, favorites, and playtime tracking.</p>
+          <h2>WHAT IT CAN DO</h2>
+          <ul>
+            <li>Auto-discovers games from Steam, Epic, GOG, Battle.net, Ubisoft Connect, and Xbox / Game Pass (best-effort)</li>
+            <li>Add manual <code>.exe</code> titles when a store does not see them</li>
+            <li>Click cover art to launch; search, store filters, and favorites to keep the shelf usable</li>
+            <li>Tracks playtime and last played (imports Steam playtime when available)</li>
+            <li>Fetches covers from Steam, Epic, Wikipedia, and optional SteamGridDB</li>
+            <li>Live FPS overlay while a game runs (Intel PresentMon)</li>
+            <li>Glass / acrylic UI on Windows where supported</li>
+          </ul>
           <h2>HIGHLIGHTS</h2>
           <ul>
-            <li>ESP32 + FabGL VGA graphics stack</li>
-            <li>Win98-style UI (login, explorer, terminal)</li>
-            <li>SD card apps / NanoScript samples</li>
-            <li>Companion to the NanoLab BASIC hardware line</li>
+            <li>One library across stores instead of five launchers</li>
+            <li>Missing games stay in the shelf with history intact</li>
+            <li>Local data under <code>%APPDATA%\IntelLauncher\</code></li>
           </ul>
           <ul class="page-specs">
-            <li><strong>Stack</strong> ESP32 · FabGL · VGA</li>
-            <li><strong>Storage</strong> SD card apps</li>
-            <li><strong>UI</strong> Desktop / explorer / terminal</li>
-            <li><strong>Era vibe</strong> Late-90s workstation</li>
+            <li><strong>Stack</strong> Tauri · React · TypeScript · Rust</li>
+            <li><strong>Platform</strong> Windows</li>
+            <li><strong>Stores</strong> Steam · Epic · GOG · Battle.net · Ubisoft · Xbox</li>
+            <li><strong>Extras</strong> Cover art · playtime · FPS capture</li>
           </ul>
         </article>
-                <nav class="page-nav reveal reveal-delay-3" aria-label="Project navigation">
-          <a class="btn btn-ghost" href="nanolab-2.html">&larr; NanoLab 2</a>
-          <a class="btn btn-ghost" href="retro-computers.html">Retro Computers &rarr;</a>
+        <nav class="page-nav reveal reveal-delay-3" aria-label="Project navigation">
+          <a class="btn btn-ghost" href="intelgen-app.html">&larr; IntelGen App</a>
+          <a class="btn btn-ghost" href="nanolab.html">NanoLab 1 &rarr;</a>
         </nav>
       </div>
     </main>
