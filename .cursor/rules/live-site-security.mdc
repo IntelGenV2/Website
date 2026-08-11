@@ -1,0 +1,33 @@
+---
+description: When auditing security or production health, always check the live site and GitHub repo — not only local files.
+alwaysApply: true
+---
+
+# Live site + GitHub are source of truth for deploys
+
+This project is a **static** site published via GitHub Pages.
+
+- **Live site:** https://www.intelgenv2.com/
+- **GitHub repo:** https://github.com/IntelGenV2/Website
+- **Hosting:** GitHub Pages (`Server: GitHub.com`, `CNAME` → intelgenv2.com)
+
+## When the user asks about security, production, or “what’s live”
+
+Do **not** rely only on the local workspace. Also:
+
+1. Fetch the live homepage and key assets (`/js/main.js`, `/js/boot.js`, `/js/page.js`, `/js/matrix-rain.js`).
+2. Inspect the [GitHub tree](https://github.com/IntelGenV2/Website) / raw files on `main` (confirm no `.env`, `node_modules`, secrets, backend code).
+3. Optionally run `node scripts/audit-live.mjs` from the site root.
+4. Report findings against both **live** and **repo**, and note if local is ahead of / behind `main`.
+
+## Expected baseline (static brochure site)
+
+- No backend, DB, auth, forms, uploads, webhooks, or admin panel.
+- `localStorage` / `sessionStorage` for UI prefs only (theme, CRT/RAIN/GLITCH, boot skip) — not auth tokens.
+- DOM updates should prefer `textContent` / `createElement`; avoid assigning untrusted strings to `innerHTML`.
+- `Access-Control-Allow-Origin: *` on responses is **GitHub Pages default**, not an app CORS config. Acceptable while there is no authenticated API.
+
+## Repo hygiene
+
+- Never commit `.env`, secrets, or `node_modules/`.
+- Keep `.gitignore` current before push.
