@@ -98,8 +98,115 @@ body.page-mode #site.site-ready {
   color: var(--text-dim);
 }
 
+.page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem 1.15rem;
+  margin-top: 1.35rem;
+}
+
+.page-actions .btn {
+  width: auto;
+  min-width: 12rem;
+}
+
+.page-actions-meta {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245, 235, 224, 0.42);
+}
+
+.page-actions-footer {
+  margin-top: 2rem;
+  justify-content: center;
+}
+
 .page-body {
   max-width: 42em;
+}
+
+.page-split {
+  display: grid;
+  gap: 1.75rem 2rem;
+  align-items: start;
+}
+
+/* ---- Screenshot column beside copy ---- */
+.shot-gallery {
+  margin: 0;
+  max-width: none;
+}
+
+.shot-gallery-track {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.shot {
+  margin: 0;
+  width: 100%;
+  position: relative;
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(255, 106, 0, 0.28);
+  background: #060402;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+}
+
+.shot-stagger-a,
+.shot-stagger-b {
+  align-self: stretch;
+  transform: none;
+}
+
+@media (min-width: 900px) {
+  .page-split {
+    grid-template-columns: minmax(0, 1.05fr) minmax(14rem, 0.78fr);
+    gap: 1.5rem 2.25rem;
+  }
+
+  .page-split .page-body {
+    max-width: none;
+  }
+
+  .shot-gallery {
+    position: sticky;
+    top: calc(var(--nav-h) + 1rem);
+  }
+
+  .shot-gallery-track {
+    gap: 0.55rem;
+  }
+
+  .shot-stagger-a {
+    width: 92%;
+    align-self: flex-start;
+    transform: translateX(-0.2rem) rotate(-0.35deg);
+  }
+
+  .shot-stagger-b {
+    width: 88%;
+    align-self: flex-end;
+    transform: translateX(0.35rem) rotate(0.4deg);
+  }
+
+  .shot-stagger-a:nth-child(3) {
+    width: 90%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shot-stagger-a,
+  .shot-stagger-b {
+    transform: none;
+  }
 }
 
 .page-body h2 {
@@ -284,6 +391,26 @@ a.module-item:hover .module-name {
   .page-nav .btn {
     width: 100%;
     justify-content: center;
+  }
+
+  .page-actions .btn {
+    width: 100%;
+  }
+
+  .shot-gallery {
+    margin-top: 0.25rem;
+  }
+
+  .shot-gallery-track {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+  }
+
+  .shot-stagger-a,
+  .shot-stagger-b {
+    width: 100%;
+    transform: none;
   }
 
   .page-specs li {
