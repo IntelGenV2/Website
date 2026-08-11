@@ -245,6 +245,53 @@ a.module-item:hover .module-name {
   color: var(--ch-color, var(--red-bright));
 }
 
+@media (max-width: 760px) {
+  .page-main {
+    padding-top: calc(var(--nav-h) + 1.15rem);
+    padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .page-header {
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.15rem;
+  }
+
+  .page-title {
+    font-size: clamp(1.55rem, 8vw, 2.2rem);
+    letter-spacing: 0.05em;
+  }
+
+  .page-lead {
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .page-body {
+    font-size: 0.95rem;
+  }
+
+  .page-body h2 {
+    margin-top: 1.75rem;
+    font-size: 0.85rem;
+  }
+
+  .page-nav {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.55rem;
+  }
+
+  .page-nav .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .page-specs li {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+}
+
 @media (max-width: 600px) {
   .page-specs li {
     grid-template-columns: 1fr;

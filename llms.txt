@@ -1,0 +1,30 @@
+# IntelGen V2
+
+> Hardware, software, and vintage systems from the bench — DIY computers, games, and lab experiments.
+
+Site: https://www.intelgenv2.com/
+GitHub: https://github.com/IntelGenV2/Website
+
+## Projects
+
+- [System Build](https://www.intelgenv2.com/projects/system-build.html): Browser fabricator game — buy PC parts, wire a schematic, progress through computer eras.
+- [System Revival](https://www.intelgenv2.com/projects/system-revival.html): Unity FPS where a diagnostic bot repairs a 90s PC from inside the motherboard.
+- [IntelGen App](https://www.intelgenv2.com/projects/intelgen-app.html): CRT command dashboard for tasks, builds, parts, and ideas.
+- [IntelGen Game Launcher](https://www.intelgenv2.com/projects/intelgen-game-launcher.html): Windows launcher for Steam, Epic, GOG, and more in one cover-art library.
+- [NanoLab 1](https://www.intelgenv2.com/projects/nanolab.html): Arduino BASIC mini-PC with dual-Nano CPU and VGA GPU.
+- [NanoLab 2](https://www.intelgenv2.com/projects/nanolab-2.html): Nano R4 + VGA Nano — dual-mode BASIC, microSD, 8 KB program buffer.
+- [NanoLab GUI](https://www.intelgenv2.com/projects/nanolab-gui.html): ESP32 + FabGL VGA OS with a Win98-style desktop.
+- [Retro Computers](https://www.intelgenv2.com/projects/retro-computers.html): Personal fleet — C64, VIC-20, Amiga 500, Apple IIe, Mac Plus, iMac G3, Dell Vostro 200.
+- [QTOS](https://www.intelgenv2.com/projects/qtos.html): Quantified Ternary Operating System — Python OS terminal shell.
+- [Gun Mayhem 3](https://www.intelgenv2.com/projects/gun-mayhem-3.html): Godot local-multiplayer arena fighter.
+
+## Categories
+
+- System — `/#system`
+- IntelGen — `/#intelgen`
+- NanoLab — `/#nanolab`
+- Misc — `/#misc`
+
+## Contact
+
+GitHub: https://github.com/IntelGenV2
