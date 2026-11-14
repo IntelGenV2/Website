@@ -17,3 +17,17 @@
   89%  { transform:translate(0, -6px) rotate(-.55deg); animation-timing-function:ease-in; }
   100% { transform:none; }
 }
+
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  .hero-brand-face { transition:scale 180ms ease-out, rotate 150ms ease-out; }
+  .hero-brand:hover .hero-brand-face {
+    scale:1.045;
+    animation:title-wobble 650ms ease-in-out;
+  }
+}
+@keyframes title-wobble {
+  0%,100% { rotate:0deg; }
+  22% { rotate:-2deg; }
+  48% { rotate:1.5deg; }
+  72% { rotate:-.7deg; }
+}

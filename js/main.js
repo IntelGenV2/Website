@@ -173,6 +173,7 @@
     textEl.setAttribute('data-typing', '1');
 
     var lines = [
+      'Home to Studio 256',
       '14 Computers and counting',
       'RIP Commodore C=',
       'Hello World',
@@ -279,151 +280,6 @@
     );
   }
 
-  /* ---- Accent color themes ---- */
-  var THEMES = {
-    red: {
-      label: 'Red',
-      base: '#dc143c',
-      bright: '#ff3355',
-      deep: '#8b0000',
-      bg: '#0a0002',
-      rgb: [220, 20, 60]
-    },
-    orange: {
-      label: 'Orange',
-      base: '#ff6a00',
-      bright: '#ffb020',
-      deep: '#8b3a00',
-      bg: '#0a0602',
-      rgb: [255, 106, 0]
-    },
-    amber: {
-      label: 'Amber',
-      base: '#e8a000',
-      bright: '#ffd060',
-      deep: '#7a5200',
-      bg: '#0a0802',
-      rgb: [232, 160, 0]
-    },
-    green: {
-      label: 'Green',
-      base: '#22c55e',
-      bright: '#6eff9a',
-      deep: '#0d5c2e',
-      bg: '#020a04',
-      rgb: [34, 197, 94]
-    },
-    cyan: {
-      label: 'Cyan',
-      base: '#00c8e0',
-      bright: '#5ef0ff',
-      deep: '#006878',
-      bg: '#02080a',
-      rgb: [0, 200, 224]
-    },
-    blue: {
-      label: 'Blue',
-      base: '#3b82f6',
-      bright: '#7eb0ff',
-      deep: '#1e3a8a',
-      bg: '#02050a',
-      rgb: [59, 130, 246]
-    },
-    magenta: {
-      label: 'Magenta',
-      base: '#e040a0',
-      bright: '#ff70c8',
-      deep: '#7a2058',
-      bg: '#0a0206',
-      rgb: [224, 64, 160]
-    }
-  };
-
-  var STORAGE_KEY = 'intelgen-accent';
-  var root = document.documentElement;
-  var themeToggle = document.getElementById('theme-toggle');
-  var themeMenu = document.getElementById('theme-menu');
-  var themePicker = document.getElementById('theme-picker');
-
-  function rgba(rgb, a) {
-    return 'rgba(' + rgb[0] + ', ' + rgb[1] + ', ' + rgb[2] + ', ' + a + ')';
-  }
-
-  function applyTheme(id) {
-    var theme = THEMES[id] || THEMES.orange;
-    id = THEMES[id] ? id : 'orange';
-
-    root.style.setProperty('--red', theme.base);
-    root.style.setProperty('--red-bright', theme.bright);
-    root.style.setProperty('--red-dim', rgba(theme.rgb, 0.45));
-    root.style.setProperty('--border', rgba(theme.rgb, 0.35));
-    root.style.setProperty('--accent-deep', theme.deep);
-    root.style.setProperty('--bg-dark', theme.bg);
-    root.style.setProperty('--bg-panel', 'rgba(10, 8, 6, 0.72)');
-    root.style.setProperty('--ch-tasks', theme.base);
-    root.style.setProperty('--ch-nanolab', theme.base);
-    document.body.style.backgroundColor = theme.bg;
-
-    var channelText = theme.label + ' channel armed';
-    var channelArmed = document.getElementById('channel-armed');
-    var footerChannel = document.getElementById('footer-channel');
-    if (channelArmed) channelArmed.textContent = channelText;
-    if (footerChannel) footerChannel.textContent = channelText;
-
-    if (themeMenu) {
-      themeMenu.querySelectorAll('.theme-swatch').forEach(function (btn) {
-        var active = btn.getAttribute('data-theme') === id;
-        btn.setAttribute('aria-checked', active ? 'true' : 'false');
-      });
-    }
-
-    try {
-      localStorage.setItem(STORAGE_KEY, id);
-    } catch (e) { /* ignore */ }
-  }
-
-  function closeThemeMenu() {
-    if (!themeMenu || !themeToggle) return;
-    themeMenu.classList.add('hidden');
-    themeToggle.setAttribute('aria-expanded', 'false');
-  }
-
-  function openThemeMenu() {
-    if (!themeMenu || !themeToggle) return;
-    themeMenu.classList.remove('hidden');
-    themeToggle.setAttribute('aria-expanded', 'true');
-  }
-
-  if (themeToggle && themeMenu) {
-    themeToggle.addEventListener('click', function (e) {
-      e.stopPropagation();
-      if (themeMenu.classList.contains('hidden')) openThemeMenu();
-      else closeThemeMenu();
-    });
-
-    themeMenu.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var btn = e.target.closest('.theme-swatch');
-      if (!btn) return;
-      applyTheme(btn.getAttribute('data-theme'));
-      closeThemeMenu();
-    });
-
-    document.addEventListener('click', function (e) {
-      if (themePicker && !themePicker.contains(e.target)) closeThemeMenu();
-    });
-
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') closeThemeMenu();
-    });
-  }
-
-  var savedTheme = 'orange';
-  try {
-    savedTheme = localStorage.getItem(STORAGE_KEY) || 'orange';
-  } catch (e) { /* ignore */ }
-  applyTheme(savedTheme);
-
   window.IntelGenSite = {
     onReady: function () {
       initPathDropdowns();
@@ -431,7 +287,6 @@
       updateActiveNav();
       initHeroTypewriter();
       revealPage();
-    },
-    setTheme: applyTheme
+    }
   };
 })();

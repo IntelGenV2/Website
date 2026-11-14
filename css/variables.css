@@ -10,8 +10,9 @@
   --steel: #77767b;
   --lavender: #d6d2c4;
   --blue: #41444a;
-  --red: #ff751a;
-  --red-bright: #ffae61;
+  --red-bright: #ffb020;
+  --bg-dark: #0a0602;
+  --border: rgba(255, 106, 0, .35);
   --ok: #8aea98;
   --font-display: 'C64 Pro', monospace;
   --font-mono: 'C64 Pro', monospace;
