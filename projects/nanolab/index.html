@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    (function () {
+      try {
+        if (location.pathname.endsWith('/index.html')) {
+          history.replaceState(null, '', location.pathname.slice(0, -10) + location.search + location.hash);
+        }
+        if (sessionStorage.getItem('intelgen-wipe-to') === location.pathname + location.search) {
+          document.documentElement.classList.add('wipe-arrival');
+          sessionStorage.removeItem('intelgen-wipe-to');
+        }
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Browse NanoLab projects by IntelGenV2." />
+  <title>NanoLab projects — IntelGenV2</title>
+  <link rel="canonical" href="https://www.intelgenv2.com/projects/nanolab/" />
+  <meta name="theme-color" content="#1c1d22" />
+  <meta name="author" content="IntelGen" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="IntelGen" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="NanoLab projects — IntelGenV2" />
+  <meta property="og:description" content="Browse NanoLab projects by IntelGenV2." />
+  <meta property="og:url" content="https://www.intelgenv2.com/projects/nanolab/" />
+  <meta property="og:image" content="https://www.intelgenv2.com/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NanoLab projects — IntelGenV2" />
+  <meta name="twitter:description" content="Browse NanoLab projects by IntelGenV2." />
+  <meta name="twitter:image" content="https://www.intelgenv2.com/assets/og-image.png" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" sizes="180x180" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "NanoLab projects",
+  "url": "https://www.intelgenv2.com/projects/nanolab/"
+}
+  </script>
+  <link rel="stylesheet" href="/css/variables.css?v=26d6a527" />
+  <link rel="stylesheet" href="/css/main.css?v=cb46ba0e" />
+  <link rel="stylesheet" href="/css/animations.css?v=3058013f" />
+  <link rel="stylesheet" href="/css/page.css?v=98b71a85" />
+</head>
+<body class="page-mode" data-category="nanolab">
+  <img id="page-wipe" src="/assets/c64/page-wipe.png" alt="" aria-hidden="true" fetchpriority="high" />
+  <div id="backdrop" aria-hidden="true"></div>
+
+  <div id="site" class="site-ready" aria-hidden="false">
+    <header class="site-nav">
+      <div class="nav-start">
+        <a class="nav-brand" href="/"><span class="brand-text">IntelGen</span><span class="brand-version">V2</span></a>
+                <nav id="nav-links" class="nav-links nav-path" aria-label="Project paths">
+          <div class="nav-path-drop" data-cat="system">
+            <button type="button" class="nav-path-trigger" data-cat="system" aria-expanded="false" aria-haspopup="true" aria-controls="menu-system"><span>System</span></button>
+            <div id="menu-system" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/system/system-revival/"><span>System Revival</span></a>
+            </div>
+          </div>
+          <div class="nav-path-drop" data-cat="intelgen">
+            <button type="button" class="nav-path-trigger" data-cat="intelgen" aria-expanded="false" aria-haspopup="true" aria-controls="menu-intelgen"><span>IntelGen</span></button>
+            <div id="menu-intelgen" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/intelgen/intelgen-game-launcher/"><span>IntelGen Game Launcher</span></a>
+            </div>
+          </div>
+          <div class="nav-path-drop" data-cat="nanolab">
+            <button type="button" class="nav-path-trigger" data-cat="nanolab" aria-expanded="false" aria-haspopup="true" aria-controls="menu-nanolab"><span>NanoLab</span></button>
+            <div id="menu-nanolab" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/nanolab/nanolab/"><span>NanoLab 1</span></a>
+              <a role="menuitem" href="/projects/nanolab/nanolab-2/"><span>NanoLab 2</span></a>
+            </div>
+          </div>
+          <div class="nav-path-drop" data-cat="misc">
+            <button type="button" class="nav-path-trigger" data-cat="misc" aria-expanded="false" aria-haspopup="true" aria-controls="menu-misc"><span>Misc</span></button>
+            <div id="menu-misc" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/misc/retro-computers/"><span>Retro Computers</span></a>
+              <a role="menuitem" href="/projects/misc/commodore-64/"><span>Commodore 64 Projects</span></a>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-end">
+        <button type="button" id="nav-toggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">☰</button>
+        <div class="nav-status">
+          <div class="theme-picker" id="theme-picker">
+            <button type="button" id="theme-toggle" class="theme-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="theme-menu" title="Accent color">
+              <span class="theme-toggle-swatch" aria-hidden="true"></span>
+              <span class="theme-toggle-label">COLOR</span>
+            </button>
+            <div id="theme-menu" class="theme-menu hidden" role="menu" aria-label="Accent colors">
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="red" aria-checked="false" title="Red" style="--swatch:#dc143c"><span class="visually-hidden">Red</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="orange" aria-checked="true" title="Orange" style="--swatch:#ff6a00"><span class="visually-hidden">Orange</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="amber" aria-checked="false" title="Amber" style="--swatch:#e8a000"><span class="visually-hidden">Amber</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="green" aria-checked="false" title="Green" style="--swatch:#22c55e"><span class="visually-hidden">Green</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="cyan" aria-checked="false" title="Cyan" style="--swatch:#00c8e0"><span class="visually-hidden">Cyan</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="blue" aria-checked="false" title="Blue" style="--swatch:#3b82f6"><span class="visually-hidden">Blue</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="magenta" aria-checked="false" title="Magenta" style="--swatch:#e040a0"><span class="visually-hidden">Magenta</span></button>
+            </div>
+          </div>
+          <span id="live-clock" class="live-clock">--:--:--</span>
+          <span class="status-pill" id="sys-status">ONLINE</span>
+        </div>
+      </div>
+    </header>
+    <nav class="page-controls" aria-label="Page navigation">
+      <a id="nav-home" class="key" href="/">Home</a>
+      <a class="key" href="/projects/intelgen/intelgen-game-launcher/" aria-label="Previous: IntelGen Game Launcher" title="IntelGen Game Launcher">Previous</a>
+      <a class="key" href="/projects/nanolab/nanolab/" aria-label="Next: NanoLab 1" title="NanoLab 1">Next</a>
+    </nav>
+
+    <main class="category-main view-category"><header class="category-header bar"><h1 class="section-title">NanoLab</h1></header>
+<ul class="module-list project-list">
+                  <li>
+                    <div class="module-item panel" data-channel="nanolab">
+                      <a class="module-item-link" href="/projects/nanolab/nanolab/">
+                        <span class="module-code">NL-01</span>
+                        <div>
+                          <div class="project-head">
+                            <h3 class="module-name">NanoLab 1</h3>
+                            <span class="project-type">Hardware</span>
+                          </div>
+                          <p class="project-path">C:\PROJECTS\NANO LAB\1</p>
+                          <p class="module-desc">Arduino BASIC mini-PC with a dual-Nano CPU and VGA GPU — a real machine you can type into.</p>
+                          <p class="module-more">OPEN →</p>
+                        </div>
+                      </a>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="module-item panel" data-channel="nanolab2">
+                      <a class="module-item-link" href="/projects/nanolab/nanolab-2/">
+                        <span class="module-code">NL-02</span>
+                        <div>
+                          <div class="project-head">
+                            <h3 class="module-name">NanoLab 2</h3>
+                            <span class="project-type">Hardware</span>
+                          </div>
+                          <p class="project-path">C:\PROJECTS\NANO LAB\2</p>
+                          <p class="module-desc">Nano R4 + VGA Nano — dual-mode BASIC, microSD, and an 8 KB program buffer.</p>
+                          <p class="module-more">OPEN →</p>
+                        </div>
+                      </a>
+                    </div>
+                  </li>
+
+                </ul>
+    </main>
+  </div>
+
+  <span id="channel-armed" class="visually-hidden">Orange channel armed</span>
+  <script src="/js/main.js?v=8213d068"></script>
+  <script src="/js/page.js?v=d204fed2"></script>
+</body>
+</html>

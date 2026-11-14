@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    (function () {
+      try {
+        if (location.pathname.endsWith('/index.html')) {
+          history.replaceState(null, '', location.pathname.slice(0, -10) + location.search + location.hash);
+        }
+        if (sessionStorage.getItem('intelgen-wipe-to') === location.pathname + location.search) {
+          document.documentElement.classList.add('wipe-arrival');
+          sessionStorage.removeItem('intelgen-wipe-to');
+        }
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="My motherboard repair game, from the first pencil map to the SR-8 board and its swappable chips." />
+  <title>System Revival — IntelGen</title>
+  <link rel="canonical" href="https://www.intelgenv2.com/projects/system/system-revival/" />
+  <meta name="theme-color" content="#1c1d22" />
+  <meta name="author" content="IntelGen" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="IntelGen" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="System Revival — IntelGen" />
+  <meta property="og:description" content="My motherboard repair game, from the first pencil map to the SR-8 board and its swappable chips." />
+  <meta property="og:url" content="https://www.intelgenv2.com/projects/system/system-revival/" />
+  <meta property="og:image" content="https://www.intelgenv2.com/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="System Revival — IntelGen" />
+  <meta name="twitter:description" content="My motherboard repair game, from the first pencil map to the SR-8 board and its swappable chips." />
+  <meta name="twitter:image" content="https://www.intelgenv2.com/assets/og-image.png" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" sizes="180x180" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "System Revival",
+  "description": "My motherboard repair game, from the first pencil map to the SR-8 board and its swappable chips.",
+  "url": "https://www.intelgenv2.com/projects/system/system-revival/",
+  "image": "https://www.intelgenv2.com/assets/og-image.png",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "IntelGen",
+    "url": "https://www.intelgenv2.com/"
+  }
+}
+  </script>
+  <link rel="stylesheet" href="/css/variables.css?v=26d6a527" />
+  <link rel="stylesheet" href="/css/main.css?v=cb46ba0e" />
+  <link rel="stylesheet" href="/css/animations.css?v=3058013f" />
+  <link rel="stylesheet" href="/css/page.css?v=98b71a85" />
+</head>
+<body class="page-mode" data-category="system">
+  <img id="page-wipe" src="/assets/c64/page-wipe.png" alt="" aria-hidden="true" fetchpriority="high" />
+  <div id="backdrop" aria-hidden="true"></div>
+
+  <div id="site" class="site-ready" aria-hidden="false">
+    <header class="site-nav">
+      <div class="nav-start">
+        <a class="nav-brand" href="/"><span class="brand-text">IntelGen</span><span class="brand-version">V2</span></a>
+                <nav id="nav-links" class="nav-links nav-path" aria-label="Project paths">
+          <div class="nav-path-drop" data-cat="system">
+            <button type="button" class="nav-path-trigger" data-cat="system" aria-expanded="false" aria-haspopup="true" aria-controls="menu-system"><span>System</span></button>
+            <div id="menu-system" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/system/system-revival/"><span>System Revival</span></a>
+            </div>
+          </div>
+          <div class="nav-path-drop" data-cat="intelgen">
+            <button type="button" class="nav-path-trigger" data-cat="intelgen" aria-expanded="false" aria-haspopup="true" aria-controls="menu-intelgen"><span>IntelGen</span></button>
+            <div id="menu-intelgen" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/intelgen/intelgen-game-launcher/"><span>IntelGen Game Launcher</span></a>
+            </div>
+          </div>
+          <div class="nav-path-drop" data-cat="nanolab">
+            <button type="button" class="nav-path-trigger" data-cat="nanolab" aria-expanded="false" aria-haspopup="true" aria-controls="menu-nanolab"><span>NanoLab</span></button>
+            <div id="menu-nanolab" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/nanolab/nanolab/"><span>NanoLab 1</span></a>
+              <a role="menuitem" href="/projects/nanolab/nanolab-2/"><span>NanoLab 2</span></a>
+            </div>
+          </div>
+          <div class="nav-path-drop" data-cat="misc">
+            <button type="button" class="nav-path-trigger" data-cat="misc" aria-expanded="false" aria-haspopup="true" aria-controls="menu-misc"><span>Misc</span></button>
+            <div id="menu-misc" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/misc/retro-computers/"><span>Retro Computers</span></a>
+              <a role="menuitem" href="/projects/misc/commodore-64/"><span>Commodore 64 Projects</span></a>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-end">
+        <button type="button" id="nav-toggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">☰</button>
+        <div class="nav-status">
+          <div class="theme-picker" id="theme-picker">
+            <button type="button" id="theme-toggle" class="theme-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="theme-menu" title="Accent color">
+              <span class="theme-toggle-swatch" aria-hidden="true"></span>
+              <span class="theme-toggle-label">COLOR</span>
+            </button>
+            <div id="theme-menu" class="theme-menu hidden" role="menu" aria-label="Accent colors">
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="red" aria-checked="false" title="Red" style="--swatch:#dc143c"><span class="visually-hidden">Red</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="orange" aria-checked="true" title="Orange" style="--swatch:#ff6a00"><span class="visually-hidden">Orange</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="amber" aria-checked="false" title="Amber" style="--swatch:#e8a000"><span class="visually-hidden">Amber</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="green" aria-checked="false" title="Green" style="--swatch:#22c55e"><span class="visually-hidden">Green</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="cyan" aria-checked="false" title="Cyan" style="--swatch:#00c8e0"><span class="visually-hidden">Cyan</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="blue" aria-checked="false" title="Blue" style="--swatch:#3b82f6"><span class="visually-hidden">Blue</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="magenta" aria-checked="false" title="Magenta" style="--swatch:#e040a0"><span class="visually-hidden">Magenta</span></button>
+            </div>
+          </div>
+          <span id="live-clock" class="live-clock">--:--:--</span>
+          <span class="status-pill" id="sys-status">ONLINE</span>
+        </div>
+      </div>
+    </header>
+    <nav class="page-controls" aria-label="Page navigation">
+      <a id="nav-home" class="key" href="/">Home</a>
+      <a class="key" href="/" aria-label="Previous: Home" title="Home">Previous</a>
+      <a class="key" href="/projects/intelgen/intelgen-game-launcher/" aria-label="Next: IntelGen Game Launcher" title="IntelGen Game Launcher">Next</a>
+    </nav>
+
+    <main class="page-main">
+      <div class="site-inner" style="--page-accent: #b56bff">
+        <header class="page-header panel reveal reveal-delay-1">
+          <p class="page-code tab">SYS-02</p>
+          <h1 class="page-title">System Revival</h1>
+          <div class="page-meta">
+            <span class="page-type">Game</span>
+          </div>
+          <p class="page-lead">I want to make a game where you can walk around inside a broken computer. The motherboard is the level. You play the little bot trying to get it running again.</p>
+        </header>
+        <section class="project-story panel"><div class="story-copy"><h2>Walking around inside a PC</h2><p>I started with a 90s PC and a pencil sketch. What happens when you fix the video hardware while you’re standing inside the machine? I want you to actually see the picture improve. Same idea with the sound card. You should be able to hear what you just fixed.</p></div><figure><a class="photo-link" href="/assets/system-revival/maker-holes-preview.png" aria-label="Open full image: Current longboard layout with components lifted to expose their footprints"><img src="/assets/system-revival/maker-holes-preview.png" width="2400" height="1333" loading="lazy" alt="Current longboard layout with components lifted to expose their footprints"></a><figcaption>The map now, with the chip bodies lifted.</figcaption></figure></section>
+        <section class="project-story panel"><div class="story-copy"><h2>The SR-8 board</h2><p>By Test 3 I was working out the machine chip by chip. In revision four of the SR-8 you can click a pin to see where that connection goes. Keeping the other lines hidden makes it possible to follow one fault across the board.</p><p>Repairs earn points to unlock parts. For the final boss, what matters is how much of the machine you actually have working. I’m still figuring out the ending.</p></div><figure><a class="photo-link" href="/assets/system-revival/maker-psu-front.png" aria-label="Open full image: Latest board maker schematic showing the mains input and transformer circuits"><img src="/assets/system-revival/maker-psu-front.png" width="1600" height="1149" loading="lazy" alt="Latest board maker schematic showing the mains input and transformer circuits"></a><figcaption>The power section in the current motherboard maker.</figcaption></figure></section>
+        <section class="project-feature panel"><h2>Making a board I can take apart</h2><p>My motherboard maker starts with a C64-style longboard. I can lift a chip and leave its socket behind, then fit something else there later. The starter has 97 parts fitted and 69 empty positions. Even the power supply has individual parts, so I can leave a whole voltage rail empty until a chip needs it.</p><div class="picture-pair"><figure><a class="photo-link" href="/assets/system-revival/maker-starter.png" aria-label="Open full image: Starter board with empty sockets alongside two fitted RAM rows"><img src="/assets/system-revival/maker-starter.png" width="2400" height="1333" loading="lazy" alt="Starter board with empty sockets alongside two fitted RAM rows"></a><figcaption>Starter board</figcaption></figure><figure><a class="photo-link" href="/assets/system-revival/maker-advanced.png" aria-label="Open full image: Advanced board with additional chips fitted in the reserved positions"><img src="/assets/system-revival/maker-advanced.png" width="2400" height="1333" loading="lazy" alt="Advanced board with additional chips fitted in the reserved positions"></a><figcaption>Advanced board, same socket positions</figcaption></figure></div></section>
+      </div>
+    </main>
+  </div>
+
+  <span id="channel-armed" class="visually-hidden">Orange channel armed</span>
+  <script src="/js/main.js?v=8213d068"></script>
+  <script src="/js/page.js?v=d204fed2"></script>
+</body>
+</html>

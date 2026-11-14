@@ -141,10 +141,6 @@
     loadingUiScreen.setAttribute('aria-hidden', 'false');
     loadingUiPhase.classList.add('active');
 
-    if (window.IntelGenRain) {
-      window.IntelGenRain.setOpacity('0.35');
-    }
-
     return wait(reducedMotion ? 400 : 2200).then(function () {
       loadingUiPhase.classList.remove('active');
       return wait(reducedMotion ? 120 : 350);
@@ -164,14 +160,8 @@
     document.body.classList.remove('boot-active');
     markBooted();
 
-    if (window.IntelGenRain) {
-      window.IntelGenRain.setOpacity('0.55');
-    }
-
-    setTimeout(function () {
-      if (window.IntelGenSite) window.IntelGenSite.onReady();
-      scrollToHash();
-    }, document.documentElement.hasAttribute('data-open-cat') || reducedMotion ? 0 : 200);
+    if (window.IntelGenSite) window.IntelGenSite.onReady();
+    scrollToHash();
   }
 
   function finishBoot() {
@@ -256,10 +246,6 @@
       }
     }
   });
-
-  if (window.IntelGenRain) {
-    window.IntelGenRain.setOpacity('0.35');
-  }
 
   window.IntelGenBoot = {
     skip: skipBoot,

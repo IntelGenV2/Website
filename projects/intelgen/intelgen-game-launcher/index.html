@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    (function () {
+      try {
+        if (location.pathname.endsWith('/index.html')) {
+          history.replaceState(null, '', location.pathname.slice(0, -10) + location.search + location.hash);
+        }
+        if (sessionStorage.getItem('intelgen-wipe-to') === location.pathname + location.search) {
+          document.documentElement.classList.add('wipe-arrival');
+          sessionStorage.removeItem('intelgen-wipe-to');
+        }
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Browse your installed games in one Windows library, link copies from different stores and play from the couch with a controller." />
+  <title>IntelGen Game Launcher — IntelGen</title>
+  <link rel="canonical" href="https://www.intelgenv2.com/projects/intelgen/intelgen-game-launcher/" />
+  <meta name="theme-color" content="#1c1d22" />
+  <meta name="author" content="IntelGen" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="IntelGen" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="IntelGen Game Launcher — IntelGen" />
+  <meta property="og:description" content="Browse your installed games in one Windows library, link copies from different stores and play from the couch with a controller." />
+  <meta property="og:url" content="https://www.intelgenv2.com/projects/intelgen/intelgen-game-launcher/" />
+  <meta property="og:image" content="https://www.intelgenv2.com/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="IntelGen Game Launcher — IntelGen" />
+  <meta name="twitter:description" content="Browse your installed games in one Windows library, link copies from different stores and play from the couch with a controller." />
+  <meta name="twitter:image" content="https://www.intelgenv2.com/assets/og-image.png" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" sizes="180x180" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "IntelGen Game Launcher",
+  "description": "Browse your installed games in one Windows library, link copies from different stores and play from the couch with a controller.",
+  "url": "https://www.intelgenv2.com/projects/intelgen/intelgen-game-launcher/",
+  "image": "https://www.intelgenv2.com/assets/og-image.png",
+  "operatingSystem": "Windows",
+  "applicationCategory": "GameApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "downloadUrl": "https://github.com/IntelGenV2/Game-Launcher/releases/latest",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "IntelGen",
+    "url": "https://www.intelgenv2.com/"
+  }
+}
+  </script>
+  <link rel="stylesheet" href="/css/variables.css?v=26d6a527" />
+  <link rel="stylesheet" href="/css/main.css?v=cb46ba0e" />
+  <link rel="stylesheet" href="/css/animations.css?v=3058013f" />
+  <link rel="stylesheet" href="/css/page.css?v=98b71a85" />
+</head>
+<body class="page-mode" data-category="intelgen">
+  <img id="page-wipe" src="/assets/c64/page-wipe.png" alt="" aria-hidden="true" fetchpriority="high" />
+  <div id="backdrop" aria-hidden="true"></div>
+
+  <div id="site" class="site-ready" aria-hidden="false">
+    <header class="site-nav">
+      <div class="nav-start">
+        <a class="nav-brand" href="/"><span class="brand-text">IntelGen</span><span class="brand-version">V2</span></a>
+                <nav id="nav-links" class="nav-links nav-path" aria-label="Project paths">
+          <div class="nav-path-drop" data-cat="system">
+            <button type="button" class="nav-path-trigger" data-cat="system" aria-expanded="false" aria-haspopup="true" aria-controls="menu-system"><span>System</span></button>
+            <div id="menu-system" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/system/system-revival/"><span>System Revival</span></a>
+            </div>
+          </div>
+          <div class="nav-path-drop" data-cat="intelgen">
+            <button type="button" class="nav-path-trigger" data-cat="intelgen" aria-expanded="false" aria-haspopup="true" aria-controls="menu-intelgen"><span>IntelGen</span></button>
+            <div id="menu-intelgen" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/intelgen/intelgen-game-launcher/"><span>IntelGen Game Launcher</span></a>
+            </div>
+          </div>
+          <div class="nav-path-drop" data-cat="nanolab">
+            <button type="button" class="nav-path-trigger" data-cat="nanolab" aria-expanded="false" aria-haspopup="true" aria-controls="menu-nanolab"><span>NanoLab</span></button>
+            <div id="menu-nanolab" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/nanolab/nanolab/"><span>NanoLab 1</span></a>
+              <a role="menuitem" href="/projects/nanolab/nanolab-2/"><span>NanoLab 2</span></a>
+            </div>
+          </div>
+          <div class="nav-path-drop" data-cat="misc">
+            <button type="button" class="nav-path-trigger" data-cat="misc" aria-expanded="false" aria-haspopup="true" aria-controls="menu-misc"><span>Misc</span></button>
+            <div id="menu-misc" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/misc/retro-computers/"><span>Retro Computers</span></a>
+              <a role="menuitem" href="/projects/misc/commodore-64/"><span>Commodore 64 Projects</span></a>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-end">
+        <button type="button" id="nav-toggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">☰</button>
+        <div class="nav-status">
+          <div class="theme-picker" id="theme-picker">
+            <button type="button" id="theme-toggle" class="theme-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="theme-menu" title="Accent color">
+              <span class="theme-toggle-swatch" aria-hidden="true"></span>
+              <span class="theme-toggle-label">COLOR</span>
+            </button>
+            <div id="theme-menu" class="theme-menu hidden" role="menu" aria-label="Accent colors">
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="red" aria-checked="false" title="Red" style="--swatch:#dc143c"><span class="visually-hidden">Red</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="orange" aria-checked="true" title="Orange" style="--swatch:#ff6a00"><span class="visually-hidden">Orange</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="amber" aria-checked="false" title="Amber" style="--swatch:#e8a000"><span class="visually-hidden">Amber</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="green" aria-checked="false" title="Green" style="--swatch:#22c55e"><span class="visually-hidden">Green</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="cyan" aria-checked="false" title="Cyan" style="--swatch:#00c8e0"><span class="visually-hidden">Cyan</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="blue" aria-checked="false" title="Blue" style="--swatch:#3b82f6"><span class="visually-hidden">Blue</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="magenta" aria-checked="false" title="Magenta" style="--swatch:#e040a0"><span class="visually-hidden">Magenta</span></button>
+            </div>
+          </div>
+          <span id="live-clock" class="live-clock">--:--:--</span>
+          <span class="status-pill" id="sys-status">ONLINE</span>
+        </div>
+      </div>
+    </header>
+    <nav class="page-controls" aria-label="Page navigation">
+      <a id="nav-home" class="key" href="/">Home</a>
+      <a class="key" href="/projects/system/system-revival/" aria-label="Previous: System Revival" title="System Revival">Previous</a>
+      <a class="key" href="/projects/nanolab/nanolab/" aria-label="Next: NanoLab 1" title="NanoLab 1">Next</a>
+    </nav>
+
+    <main class="page-main">
+      <div class="site-inner" style="--page-accent: #ff4d6d">
+        <header class="page-header panel reveal reveal-delay-1">
+          <p class="page-code tab">IG-02</p>
+          <h1 class="page-title">IntelGen Game Launcher</h1>
+          <div class="page-meta">
+            <span class="page-type">Software</span>
+          </div>
+          <p class="page-lead">See the games installed on your PC in one place. Click a cover to launch that copy through its usual store.</p>
+          <div class="page-actions">
+            <a class="btn btn-primary js-gh-latest-download"
+               data-repo="IntelGenV2/Game-Launcher"
+               data-asset="x64-setup.exe"
+               href="https://github.com/IntelGenV2/Game-Launcher/releases/latest"
+               target="_blank"
+               rel="noopener noreferrer">Download for Windows</a>
+            <span class="page-actions-meta js-gh-latest-meta">Windows · x64 setup</span>
+          </div>
+        </header>
+        <section class="project-story panel"><div class="story-copy"><h2>One shelf for your games</h2><p>Select Rescan to find games you’ve installed through Steam, Epic, GOG or Xbox. You can scan without signing in to those stores. If you installed a game yourself, drop its EXE onto the library. Own the same game on two stores? Link the copies and choose which one to launch.</p></div><figure><a class="photo-link" href="/assets/launcher/installed-library.jpg" aria-label="Open full image: Desktop library showing Car Games and FPS Games above pinned tiles for ASUKA x Redline, Bodycam, Modrinth and R.E.P.O."><img src="/assets/launcher/installed-library.jpg" width="1152" height="682" loading="lazy" alt="Desktop library showing Car Games and FPS Games above pinned tiles for ASUKA x Redline, Bodycam, Modrinth and R.E.P.O."></a><figcaption>Groups sit above your pinned games on the desktop.</figcaption></figure></section>
+        <section class="project-feature panel"><h2>Groups and pins</h2><p>Pin the games you keep coming back to, or put a few into a group. Close the group and its covers stack together. Open it and each game keeps the group’s border colour. If you uninstall a game, your playtime is still there when you reinstall it.</p></section>
+        <section class="project-story panel"><div class="story-copy"><h2>Big Picture</h2><p>Open Big Picture to browse your library from the couch. Press left or right on your controller to spin through the covers. Press up to open a group or see game info, A to launch the selected game, and B to return to the side menu. You can use your mouse and keyboard in desktop mode.</p><p>The launcher keeps seven rotating daily backups while it’s open. You can also export a copy of your library.</p></div><figure><a class="photo-link" href="/assets/launcher/installed-big-picture.jpg" aria-label="Open full image: Big Picture with the Car Games group selected and BeamNG.drive on the front cover"><img src="/assets/launcher/installed-big-picture.jpg" width="2560" height="1080" loading="lazy" alt="Big Picture with the Car Games group selected and BeamNG.drive on the front cover"></a><figcaption>The Car Games group on the Big Picture cover wheel.</figcaption></figure></section>
+
+        <div class="page-actions page-actions-footer reveal reveal-delay-3">
+          <a class="btn btn-primary js-gh-latest-download"
+             data-repo="IntelGenV2/Game-Launcher"
+             data-asset="x64-setup.exe"
+             href="https://github.com/IntelGenV2/Game-Launcher/releases/latest"
+             target="_blank"
+             rel="noopener noreferrer">Download for Windows</a>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <span id="channel-armed" class="visually-hidden">Orange channel armed</span>
+  <script src="/js/main.js?v=8213d068"></script>
+  <script src="/js/page.js?v=d204fed2"></script>
+</body>
+</html>

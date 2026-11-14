@@ -6,53 +6,53 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.intelgenv2.com/projects/system-build.html</loc>
+    <loc>https://www.intelgenv2.com/projects/system/system-revival/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.intelgenv2.com/projects/system-revival.html</loc>
+    <loc>https://www.intelgenv2.com/projects/intelgen/intelgen-game-launcher/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.intelgenv2.com/projects/intelgen-app.html</loc>
+    <loc>https://www.intelgenv2.com/projects/nanolab/nanolab/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.intelgenv2.com/projects/intelgen-game-launcher.html</loc>
+    <loc>https://www.intelgenv2.com/projects/nanolab/nanolab-2/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.intelgenv2.com/projects/nanolab.html</loc>
+    <loc>https://www.intelgenv2.com/projects/misc/commodore-64/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.intelgenv2.com/projects/nanolab-2.html</loc>
+    <loc>https://www.intelgenv2.com/projects/misc/retro-computers/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.intelgenv2.com/projects/nanolab-gui.html</loc>
+    <loc>https://www.intelgenv2.com/projects/system/</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.intelgenv2.com/projects/retro-computers.html</loc>
+    <loc>https://www.intelgenv2.com/projects/intelgen/</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.intelgenv2.com/projects/qtos.html</loc>
+    <loc>https://www.intelgenv2.com/projects/nanolab/</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.intelgenv2.com/projects/gun-mayhem-3.html</loc>
+    <loc>https://www.intelgenv2.com/projects/misc/</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
 </urlset>

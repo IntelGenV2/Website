@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    (function () {
+      try {
+        if (location.pathname.endsWith('/index.html')) {
+          history.replaceState(null, '', location.pathname.slice(0, -10) + location.search + location.hash);
+        }
+        if (sessionStorage.getItem('intelgen-wipe-to') === location.pathname + location.search) {
+          document.documentElement.classList.add('wipe-arrival');
+          sessionStorage.removeItem('intelgen-wipe-to');
+        }
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Nano R4 + classic Nano VGA BASIC mini-PC — dual-mode NL1/NL2, SD card, and an 8 KB program buffer." />
+  <title>NanoLab 2 — IntelGen</title>
+  <link rel="canonical" href="https://www.intelgenv2.com/projects/nanolab/nanolab-2/" />
+  <meta name="theme-color" content="#1c1d22" />
+  <meta name="author" content="IntelGen" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="IntelGen" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="NanoLab 2 — IntelGen" />
+  <meta property="og:description" content="Nano R4 + classic Nano VGA BASIC mini-PC — dual-mode NL1/NL2, SD card, and an 8 KB program buffer." />
+  <meta property="og:url" content="https://www.intelgenv2.com/projects/nanolab/nanolab-2/" />
+  <meta property="og:image" content="https://www.intelgenv2.com/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NanoLab 2 — IntelGen" />
+  <meta name="twitter:description" content="Nano R4 + classic Nano VGA BASIC mini-PC — dual-mode NL1/NL2, SD card, and an 8 KB program buffer." />
+  <meta name="twitter:image" content="https://www.intelgenv2.com/assets/og-image.png" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" sizes="180x180" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "NanoLab 2",
+  "description": "Nano R4 + classic Nano VGA BASIC mini-PC — dual-mode NL1/NL2, SD card, and an 8 KB program buffer.",
+  "url": "https://www.intelgenv2.com/projects/nanolab/nanolab-2/",
+  "image": "https://www.intelgenv2.com/assets/og-image.png",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "IntelGen",
+    "url": "https://www.intelgenv2.com/"
+  }
+}
+  </script>
+  <link rel="stylesheet" href="/css/variables.css?v=26d6a527" />
+  <link rel="stylesheet" href="/css/main.css?v=cb46ba0e" />
+  <link rel="stylesheet" href="/css/animations.css?v=3058013f" />
+  <link rel="stylesheet" href="/css/page.css?v=98b71a85" />
+</head>
+<body class="page-mode" data-category="nanolab">
+  <img id="page-wipe" src="/assets/c64/page-wipe.png" alt="" aria-hidden="true" fetchpriority="high" />
+  <div id="backdrop" aria-hidden="true"></div>
+
+  <div id="site" class="site-ready" aria-hidden="false">
+    <header class="site-nav">
+      <div class="nav-start">
+        <a class="nav-brand" href="/"><span class="brand-text">IntelGen</span><span class="brand-version">V2</span></a>
+                <nav id="nav-links" class="nav-links nav-path" aria-label="Project paths">
+          <div class="nav-path-drop" data-cat="system">
+            <button type="button" class="nav-path-trigger" data-cat="system" aria-expanded="false" aria-haspopup="true" aria-controls="menu-system"><span>System</span></button>
+            <div id="menu-system" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/system/system-revival/"><span>System Revival</span></a>
+            </div>
+          </div>
+          <div class="nav-path-drop" data-cat="intelgen">
+            <button type="button" class="nav-path-trigger" data-cat="intelgen" aria-expanded="false" aria-haspopup="true" aria-controls="menu-intelgen"><span>IntelGen</span></button>
+            <div id="menu-intelgen" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/intelgen/intelgen-game-launcher/"><span>IntelGen Game Launcher</span></a>
+            </div>
+          </div>
+          <div class="nav-path-drop" data-cat="nanolab">
+            <button type="button" class="nav-path-trigger" data-cat="nanolab" aria-expanded="false" aria-haspopup="true" aria-controls="menu-nanolab"><span>NanoLab</span></button>
+            <div id="menu-nanolab" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/nanolab/nanolab/"><span>NanoLab 1</span></a>
+              <a role="menuitem" href="/projects/nanolab/nanolab-2/"><span>NanoLab 2</span></a>
+            </div>
+          </div>
+          <div class="nav-path-drop" data-cat="misc">
+            <button type="button" class="nav-path-trigger" data-cat="misc" aria-expanded="false" aria-haspopup="true" aria-controls="menu-misc"><span>Misc</span></button>
+            <div id="menu-misc" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/misc/retro-computers/"><span>Retro Computers</span></a>
+              <a role="menuitem" href="/projects/misc/commodore-64/"><span>Commodore 64 Projects</span></a>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-end">
+        <button type="button" id="nav-toggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">☰</button>
+        <div class="nav-status">
+          <div class="theme-picker" id="theme-picker">
+            <button type="button" id="theme-toggle" class="theme-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="theme-menu" title="Accent color">
+              <span class="theme-toggle-swatch" aria-hidden="true"></span>
+              <span class="theme-toggle-label">COLOR</span>
+            </button>
+            <div id="theme-menu" class="theme-menu hidden" role="menu" aria-label="Accent colors">
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="red" aria-checked="false" title="Red" style="--swatch:#dc143c"><span class="visually-hidden">Red</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="orange" aria-checked="true" title="Orange" style="--swatch:#ff6a00"><span class="visually-hidden">Orange</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="amber" aria-checked="false" title="Amber" style="--swatch:#e8a000"><span class="visually-hidden">Amber</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="green" aria-checked="false" title="Green" style="--swatch:#22c55e"><span class="visually-hidden">Green</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="cyan" aria-checked="false" title="Cyan" style="--swatch:#00c8e0"><span class="visually-hidden">Cyan</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="blue" aria-checked="false" title="Blue" style="--swatch:#3b82f6"><span class="visually-hidden">Blue</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="magenta" aria-checked="false" title="Magenta" style="--swatch:#e040a0"><span class="visually-hidden">Magenta</span></button>
+            </div>
+          </div>
+          <span id="live-clock" class="live-clock">--:--:--</span>
+          <span class="status-pill" id="sys-status">ONLINE</span>
+        </div>
+      </div>
+    </header>
+    <nav class="page-controls" aria-label="Page navigation">
+      <a id="nav-home" class="key" href="/">Home</a>
+      <a class="key" href="/projects/nanolab/nanolab/" aria-label="Previous: NanoLab 1" title="NanoLab 1">Previous</a>
+      <a class="key" href="/projects/misc/retro-computers/" aria-label="Next: Retro Computers" title="Retro Computers">Next</a>
+    </nav>
+
+    <main class="page-main">
+      <div class="site-inner" style="--page-accent: #ff8a1a">
+        <header class="page-header panel reveal reveal-delay-1">
+          <p class="page-code tab">NL-02</p>
+          <h1 class="page-title">NanoLab 2</h1>
+          <div class="page-meta">
+            <span class="page-type">Hardware</span>
+          </div>
+          <p class="page-lead">Nano R4 CPU + classic Nano VGA GPU — dual-mode BASIC, microSD, and room to actually write programs.</p>
+        </header>
+        <article class="page-body panel reveal reveal-delay-2">
+          <h2>OVERVIEW</h2>
+          <p>NanoLab 2 keeps the dual-board idea from NanoLab 1, but moves the CPU to an Arduino Nano R4. The GPU stays a classic Nano driving VGA text. Bigger buffer, SD file I/O, and two real BASIC dialects instead of one integer dialect.</p>
+          <h2>WHAT IT CAN DO</h2>
+          <ul>
+            <li>Switch dialects: <code>NL1</code> (integer 1.7) or <code>NL2</code> (float BASIC)</li>
+            <li><strong>NL2:</strong> floats, strings (<code>A$</code>), <code>DIM</code>, <code>ELSE</code>, <code>WHILE</code>, <code>ON GOTO</code>, <code>STOP</code>/<code>CONT</code>, logic ops, <code>STR$</code>/<code>INSTR</code>, <code>BEEP</code>/<code>SOUND</code>/<code>PLAY</code>, <code>GET</code>/<code>INKEY$</code></li>
+            <li><strong>NL1:</strong> classic integer mode with <code>.</code> / <code>?</code> / <code>!</code> aliases and <code>TONE</code>/<code>TONEW</code></li>
+            <li>8 KB program buffer (was ~1 KB on NanoLab 1) and deeper FOR/GOSUB stacks</li>
+            <li>Load and save programs from microSD: <code>LOAD</code>, <code>SAVE</code>, <code>FILES</code>, <code>CHAIN</code></li>
+            <li>Still has EEPROM tools: <code>ELOAD</code>, <code>ESAVE</code>, <code>ECHAIN</code>, <code>ELIST</code>, <code>EFORMAT</code></li>
+            <li>PS/2 keyboard on the R4, USB serial separate from the GPU link</li>
+            <li>Same VGA text terminal feel — clear, color cycle, block graphics</li>
+          </ul>
+          <h2>HIGHLIGHTS</h2>
+          <ul>
+            <li>CPU: Arduino Nano R4 · GPU: Arduino Nano + VGAX</li>
+            <li>Separate keyword tables per dialect — not a thin overlay</li>
+            <li>SPI microSD on the CPU board</li>
+            <li>Boot password, memory bars, then the <code>&gt;</code> prompt</li>
+          </ul>
+          <ul class="page-specs">
+            <li><strong>Stack</strong> Nano R4 · Nano VGA · dual-mode BASIC</li>
+            <li><strong>Input</strong> PS/2 keyboard · USB upload</li>
+            <li><strong>Display</strong> VGA text GPU board</li>
+            <li><strong>Language</strong> NL1 integer · NL2 float/string</li>
+            <li><strong>Storage</strong> 8 KB buffer · SD · EEPROM</li>
+          </ul>
+        </article>
+      </div>
+    </main>
+  </div>
+
+  <span id="channel-armed" class="visually-hidden">Orange channel armed</span>
+  <script src="/js/main.js?v=8213d068"></script>
+  <script src="/js/page.js?v=d204fed2"></script>
+</body>
+</html>

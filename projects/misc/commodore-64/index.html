@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    (function () {
+      try {
+        if (location.pathname.endsWith('/index.html')) {
+          history.replaceState(null, '', location.pathname.slice(0, -10) + location.search + location.hash);
+        }
+        if (sessionStorage.getItem('intelgen-wipe-to') === location.pathname + location.search) {
+          document.documentElement.classList.add('wipe-arrival');
+          sessionStorage.removeItem('intelgen-wipe-to');
+        }
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="My Commodore 64 games, Flash ports, disk tools and Studio 256 intro, with pictures from the builds." />
+  <title>Commodore 64 Projects — IntelGen</title>
+  <link rel="canonical" href="https://www.intelgenv2.com/projects/misc/commodore-64/" />
+  <meta name="theme-color" content="#1c1d22" />
+  <meta name="author" content="IntelGen" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="IntelGen" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Commodore 64 Projects — IntelGen" />
+  <meta property="og:description" content="My Commodore 64 games, Flash ports, disk tools and Studio 256 intro, with pictures from the builds." />
+  <meta property="og:url" content="https://www.intelgenv2.com/projects/misc/commodore-64/" />
+  <meta property="og:image" content="https://www.intelgenv2.com/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Commodore 64 Projects — IntelGen" />
+  <meta name="twitter:description" content="My Commodore 64 games, Flash ports, disk tools and Studio 256 intro, with pictures from the builds." />
+  <meta name="twitter:image" content="https://www.intelgenv2.com/assets/og-image.png" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" sizes="180x180" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Commodore 64 Projects",
+  "description": "My Commodore 64 games, Flash ports, disk tools and Studio 256 intro, with pictures from the builds.",
+  "url": "https://www.intelgenv2.com/projects/misc/commodore-64/",
+  "image": "https://www.intelgenv2.com/assets/og-image.png",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "IntelGen",
+    "url": "https://www.intelgenv2.com/"
+  }
+}
+  </script>
+  <link rel="stylesheet" href="/css/variables.css?v=26d6a527" />
+  <link rel="stylesheet" href="/css/main.css?v=cb46ba0e" />
+  <link rel="stylesheet" href="/css/animations.css?v=3058013f" />
+  <link rel="stylesheet" href="/css/page.css?v=98b71a85" />
+</head>
+<body class="page-mode" data-category="misc">
+  <img id="page-wipe" src="/assets/c64/page-wipe.png" alt="" aria-hidden="true" fetchpriority="high" />
+  <div id="backdrop" aria-hidden="true"></div>
+
+  <div id="site" class="site-ready" aria-hidden="false">
+    <header class="site-nav">
+      <div class="nav-start">
+        <a class="nav-brand" href="/"><span class="brand-text">IntelGen</span><span class="brand-version">V2</span></a>
+                <nav id="nav-links" class="nav-links nav-path" aria-label="Project paths">
+          <div class="nav-path-drop" data-cat="system">
+            <button type="button" class="nav-path-trigger" data-cat="system" aria-expanded="false" aria-haspopup="true" aria-controls="menu-system"><span>System</span></button>
+            <div id="menu-system" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/system/system-revival/"><span>System Revival</span></a>
+            </div>
+          </div>
+          <div class="nav-path-drop" data-cat="intelgen">
+            <button type="button" class="nav-path-trigger" data-cat="intelgen" aria-expanded="false" aria-haspopup="true" aria-controls="menu-intelgen"><span>IntelGen</span></button>
+            <div id="menu-intelgen" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/intelgen/intelgen-game-launcher/"><span>IntelGen Game Launcher</span></a>
+            </div>
+          </div>
+          <div class="nav-path-drop" data-cat="nanolab">
+            <button type="button" class="nav-path-trigger" data-cat="nanolab" aria-expanded="false" aria-haspopup="true" aria-controls="menu-nanolab"><span>NanoLab</span></button>
+            <div id="menu-nanolab" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/nanolab/nanolab/"><span>NanoLab 1</span></a>
+              <a role="menuitem" href="/projects/nanolab/nanolab-2/"><span>NanoLab 2</span></a>
+            </div>
+          </div>
+          <div class="nav-path-drop" data-cat="misc">
+            <button type="button" class="nav-path-trigger" data-cat="misc" aria-expanded="false" aria-haspopup="true" aria-controls="menu-misc"><span>Misc</span></button>
+            <div id="menu-misc" class="nav-path-menu" role="menu" hidden>
+              <a role="menuitem" href="/projects/misc/retro-computers/"><span>Retro Computers</span></a>
+              <a role="menuitem" href="/projects/misc/commodore-64/"><span>Commodore 64 Projects</span></a>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-end">
+        <button type="button" id="nav-toggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">☰</button>
+        <div class="nav-status">
+          <div class="theme-picker" id="theme-picker">
+            <button type="button" id="theme-toggle" class="theme-toggle" aria-expanded="false" aria-haspopup="true" aria-controls="theme-menu" title="Accent color">
+              <span class="theme-toggle-swatch" aria-hidden="true"></span>
+              <span class="theme-toggle-label">COLOR</span>
+            </button>
+            <div id="theme-menu" class="theme-menu hidden" role="menu" aria-label="Accent colors">
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="red" aria-checked="false" title="Red" style="--swatch:#dc143c"><span class="visually-hidden">Red</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="orange" aria-checked="true" title="Orange" style="--swatch:#ff6a00"><span class="visually-hidden">Orange</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="amber" aria-checked="false" title="Amber" style="--swatch:#e8a000"><span class="visually-hidden">Amber</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="green" aria-checked="false" title="Green" style="--swatch:#22c55e"><span class="visually-hidden">Green</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="cyan" aria-checked="false" title="Cyan" style="--swatch:#00c8e0"><span class="visually-hidden">Cyan</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="blue" aria-checked="false" title="Blue" style="--swatch:#3b82f6"><span class="visually-hidden">Blue</span></button>
+              <button type="button" class="theme-swatch" role="menuitemradio" data-theme="magenta" aria-checked="false" title="Magenta" style="--swatch:#e040a0"><span class="visually-hidden">Magenta</span></button>
+            </div>
+          </div>
+          <span id="live-clock" class="live-clock">--:--:--</span>
+          <span class="status-pill" id="sys-status">ONLINE</span>
+        </div>
+      </div>
+    </header>
+    <nav class="page-controls" aria-label="Page navigation">
+      <a id="nav-home" class="key" href="/">Home</a>
+      <a class="key" href="/projects/misc/retro-computers/" aria-label="Previous: Retro Computers" title="Retro Computers">Previous</a>
+      <a class="key" href="/" aria-label="Next: Home" title="Home">Next</a>
+    </nav>
+
+    <main class="page-main">
+      <div class="site-inner" style="--page-accent: #e8a000">
+        <header class="page-header panel"><p class="page-code tab">C64</p><h1 class="page-title">Commodore 64 Projects</h1><p class="page-lead">Here’s what I’ve been making for the C64 under Studio 256. There are a few Flash games I wanted to play on it, a puzzle game of my own, and a disk browser for my SD2IEC.</p></header>
+        <div class="project-grid">
+          <section class="project-card panel"><h2>Loophole</h2><figure><a class="photo-link" href="/assets/commodore/loophole.png" aria-label="Open full image: Seashore room with a moon, a flag and an exit above the waves"><img src="/assets/commodore/loophole.png" width="960" height="600" loading="lazy" alt="Seashore room with a moon, a flag and an exit above the waves"></a></figure><p>It’s the same door, red button and pit, but the trick changes each time. I made forty rooms across four worlds. This one is from Seashore.</p></section>
+          <section class="project-card panel"><h2>Bloxorz</h2><figure><a class="photo-link" href="/assets/commodore/bloxorz.png" aria-label="Open full image: Orange block standing upright on the tiled platforms of stage two"><img src="/assets/commodore/bloxorz.png" width="960" height="600" loading="lazy" alt="Orange block standing upright on the tiled platforms of stage two"></a></figure><p>I ported Bloxorz to the C64 from the Flash game of the same name. I got all 33 stages into one load, including the passcodes.</p></section>
+          <section class="project-card panel"><h2>Awesome Tanks 2</h2><figure><a class="photo-link" href="/assets/commodore/tanks.png" aria-label="Open full image: Green player tank between walls and crates in sector one"><img src="/assets/commodore/tanks.png" width="960" height="600" loading="lazy" alt="Green player tank between walls and crates in sector one"></a></figure><p>There are 15 sectors from the Flash game. You uncover the map with the turret, shoot the bunkers and spend the coins on the tank. I put separate SID music in for the menu, combat and the campaign win.</p></section>
+          <section class="project-card panel"><h2>Battle Tanks</h2><figure><a class="photo-link" href="/assets/commodore/battle.png" aria-label="Open full image: Two cannon trajectories crossing a green hillside during a CPU turn"><img src="/assets/commodore/battle.png" width="640" height="400" loading="lazy" alt="Two cannon trajectories crossing a green hillside during a CPU turn"></a></figure><p>This one is based on Niklas Frykholm’s Macintosh game. Pick an angle and power, fire, then adjust for the wind. The hills take damage, so the next shot can have a very different path.</p></section>
+          <section class="project-card panel"><h2>Pac-Xon</h2><figure><a class="photo-link" href="/assets/commodore/pacxon.png" aria-label="Open full image: Pac-Xon playfield with ghosts inside a blue border"><img src="/assets/commodore/pacxon.png" width="960" height="600" loading="lazy" alt="Pac-Xon playfield with ghosts inside a blue border"></a></figure><p>Leave the blue ground, draw a line and get back before a ghost hits the trail. Claim 80% and you’re through.</p></section>
+          <section class="project-card panel"><h2>Gun Mayhem 64</h2><figure><a class="photo-link" href="/assets/commodore/mayhem.png" aria-label="Open full image: Two fighters with pistols on a purple platform arena"><img src="/assets/commodore/mayhem.png" width="640" height="400" loading="lazy" alt="Two fighters with pistols on a purple platform arena"></a></figure><p>My C64 take on Gun Mayhem 2. Here are the two fighters on one of the arenas.</p></section>
+          <section class="project-card panel"><h2>DIR2</h2><figure><a class="photo-link" href="/assets/commodore/dir.png" aria-label="Open full image: DIR2 file list on a blue-bordered C64 screen"><img src="/assets/commodore/dir.png" width="384" height="272" loading="lazy" alt="DIR2 file list on a blue-bordered C64 screen"></a></figure><p>For the SD2IEC I worked on a disk browser with popup file tools. The first load is only 16 disk blocks. It reads the extra tools from the card the first time I need them and keeps them in memory.</p></section>
+          <section class="project-card panel"><h2>Studio 256</h2><figure><a class="photo-link" href="/assets/commodore/studio-256-presents.png" aria-label="Open full image: Studio 256 Presents logo with yellow and purple lettering"><img src="/assets/commodore/studio-256-presents.png" width="1920" height="1080" loading="lazy" alt="Studio 256 Presents logo with yellow and purple lettering"></a></figure><p>This is the intro I put in front of several of the games.</p></section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <span id="channel-armed" class="visually-hidden">Orange channel armed</span>
+  <script src="/js/main.js?v=8213d068"></script>
+  <script src="/js/page.js?v=d204fed2"></script>
+</body>
+</html>

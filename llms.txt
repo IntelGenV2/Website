@@ -7,23 +7,19 @@ GitHub: https://github.com/IntelGenV2/Website
 
 ## Projects
 
-- [System Build](https://www.intelgenv2.com/projects/system-build.html): Browser fabricator game — buy PC parts, wire a schematic, progress through computer eras.
-- [System Revival](https://www.intelgenv2.com/projects/system-revival.html): Unity FPS where a diagnostic bot repairs a 90s PC from inside the motherboard.
-- [IntelGen App](https://www.intelgenv2.com/projects/intelgen-app.html): CRT command dashboard for tasks, builds, parts, and ideas.
-- [IntelGen Game Launcher](https://www.intelgenv2.com/projects/intelgen-game-launcher.html): Windows launcher for Steam, Epic, GOG, and more in one cover-art library.
-- [NanoLab 1](https://www.intelgenv2.com/projects/nanolab.html): Arduino BASIC mini-PC with dual-Nano CPU and VGA GPU.
-- [NanoLab 2](https://www.intelgenv2.com/projects/nanolab-2.html): Nano R4 + VGA Nano — dual-mode BASIC, microSD, 8 KB program buffer.
-- [NanoLab GUI](https://www.intelgenv2.com/projects/nanolab-gui.html): ESP32 + FabGL VGA OS with a Win98-style desktop.
-- [Retro Computers](https://www.intelgenv2.com/projects/retro-computers.html): Personal fleet — C64, VIC-20, Amiga 500, Apple IIe, Mac Plus, iMac G3, Dell Vostro 200.
-- [QTOS](https://www.intelgenv2.com/projects/qtos.html): Quantified Ternary Operating System — Python OS terminal shell.
-- [Gun Mayhem 3](https://www.intelgenv2.com/projects/gun-mayhem-3.html): Godot local-multiplayer arena fighter.
+- [System Revival](https://www.intelgenv2.com/projects/system/system-revival/) — My motherboard repair game, from the first pencil map to the SR-8 board and its swappable chips.
+- [IntelGen Game Launcher](https://www.intelgenv2.com/projects/intelgen/intelgen-game-launcher/) — Browse your installed games in one Windows library, link copies from different stores and play from the couch with a controller.
+- [NanoLab 1](https://www.intelgenv2.com/projects/nanolab/nanolab/) — Arduino BASIC mini-PC with a dual-Nano CPU and VGA GPU — a real machine you can type into.
+- [NanoLab 2](https://www.intelgenv2.com/projects/nanolab/nanolab-2/) — Nano R4 + classic Nano VGA BASIC mini-PC — dual-mode NL1/NL2, SD card, and an 8 KB program buffer.
+- [Commodore 64 Projects](https://www.intelgenv2.com/projects/misc/commodore-64/) — My Commodore 64 games, Flash ports, disk tools and Studio 256 intro, with pictures from the builds.
+- [Retro Computers](https://www.intelgenv2.com/projects/misc/retro-computers/) — Retro Computers — Commodore 64, VIC-20, Amiga 500, Apple IIe, Macintosh Plus, iMac G3, and Dell Vostro 200 XP.
 
 ## Categories
 
-- System — `/#system`
-- IntelGen — `/#intelgen`
-- NanoLab — `/#nanolab`
-- Misc — `/#misc`
+- [System](https://www.intelgenv2.com/projects/system/)
+- [IntelGen](https://www.intelgenv2.com/projects/intelgen/)
+- [NanoLab](https://www.intelgenv2.com/projects/nanolab/)
+- [Misc](https://www.intelgenv2.com/projects/misc/)
 
 ## Contact
 
