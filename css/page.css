@@ -53,7 +53,7 @@ figcaption { margin-top:7px; color:#363039; font:14px/1.4 Consolas,'Courier New'
   .project-story { gap:16px; }
 }
 
-.project-card .game-download { margin-top:14px; }
+.project-card .page-actions { margin-top:14px; }
 .about-body .key {
   display:inline-flex; align-items:center; vertical-align:middle;
   min-height:24px; padding:4px 11px 6px; color:var(--ink);
