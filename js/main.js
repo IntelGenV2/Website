@@ -176,12 +176,10 @@
       '14 Computers and counting',
       'RIP Commodore C=',
       'Hello World',
-      'All vibe coded, Sorry',
       'NanoLab: Because Arduinos didn\'t have an OS',
       'This website boots harder than my laptop',
       'Did I make a dent in the universe?',
-      'https://github.com/intelgenv2',
-      'Did I put the wrong version of my code in the repo?'
+      'LOAD"*",8,1'
     ];
 
     var lineIndex = 0;

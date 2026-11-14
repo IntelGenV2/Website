@@ -20,6 +20,7 @@
 .nav-start,.nav-end,.nav-links,.nav-status,.nav-path-drop,.nav-brand { display: flex; align-items: center; }
 .nav-start { gap: clamp(10px,2.5vw,40px); }
 .nav-brand { gap: 5px; font-size: 15px; letter-spacing: -.08em; white-space: nowrap; }
+.nav-brand-icon { width:32px; height:32px; flex:none; image-rendering:pixelated; }
 .brand-version { color: var(--red-bright); }
 .nav-links { gap: 3px; }
 .nav-path-trigger {
@@ -132,6 +133,7 @@
   .site-nav { gap:4px; }
   .live-clock,.status-pill { display:none; }
   .nav-brand { font-size:12px; }
+  .nav-brand-icon { width:24px; height:24px; }
   .nav-toggle,.theme-toggle { min-height:38px; padding:7px 7px 9px; font-size:9px; }
   .theme-toggle-label { display:none; }
   .nav-end,.nav-status { gap:2px; }

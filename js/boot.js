@@ -18,7 +18,7 @@
   var lines = [
     { text: 'INTELGENV2.COM STACK', type: 'head' },
     { text: 'BIOS CHECK ....................', status: 'OK' },
-    { text: 'MEMORY TEST 16384K ............', status: 'OK' },
+    { text: '64K RAM SYSTEM  38911 BASIC BYTES FREE', type: 'memory' },
     { text: 'DHCP LEASE ACQUIRED ...........', status: 'OK' },
     { text: 'DNS RESOLVE: INTELGENV2.COM ...', status: 'OK' },
     { text: 'ROUTE: EDGE → CDN → ORIGIN', type: 'dim' },
@@ -91,7 +91,7 @@
       bootLog.appendChild(row);
 
       var i = 0;
-      var prefix = '> ';
+      var prefix = type === 'memory' ? '' : '> ';
 
       function finishLine() {
         if (status) {

@@ -13,7 +13,7 @@
 .page-body li { margin-bottom:5px; }
 .page-body p { margin-bottom:12px; }
 .page-actions,.page-nav { margin-top:22px; }
-.js-gh-latest-download { --art:url('../assets/c64/download-orange.png'); color:var(--ink); }
+.game-download,.js-gh-latest-download { --art:url('../assets/c64/download-orange.png'); color:var(--ink); }
 .page-actions-meta { font-size:10px; }
 .page-specs { margin-top:22px; list-style:none; border-top:2px solid #aaa9ae; }
 .page-body .page-specs { padding:14px 0 0; }
@@ -52,3 +52,6 @@ figcaption { margin-top:7px; color:#363039; font:14px/1.4 Consolas,'Courier New'
   .project-story,.project-grid,.picture-pair { grid-template-columns:1fr; }
   .project-story { gap:16px; }
 }
+
+.project-card .game-download { margin-top:14px; }
+.about-body a { text-decoration:underline; text-underline-offset:2px; }

@@ -22,5 +22,4 @@ Thumbs.db
 .vscode/
 *.auth-state.json
 
-# Cursor local artifacts (keep rules; ignore caches if any)
-.cursor/*.log
+.cursor/
